@@ -10,11 +10,19 @@ router.get('/', (req, res) => {
         .then()
         .then(workout => res.json(workout))
         .catch(err => res.status(404).json({ noWorkouts: 'it is empty here' }));
+});
+
+// Retrieve current user's workout logs
+router.get('/user', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Workout.find({ user: req.user.id })
+        .then(userWorkout => res.status(200).json(userWorkout))
+        .catch(err => console.log(err))
 })
 
 // Create a workout log
-router.post('/', passport.authenticate('jwt', { session: false })(req, res) => {
+router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
     const workout = new Workout({
+        user: req.user.id,
         name: req.body.name,
         weight: req.body.weight,
         rep: req.body.rep
@@ -26,8 +34,9 @@ router.post('/', passport.authenticate('jwt', { session: false })(req, res) => {
 });
 
 // Update a workout log
-router.put('/:workoutid', (req, res) => {
+router.put('/:workoutid', passport.authenticate('jwt', { session: false }), (req, res) => {
     const workoutUpdate = {
+        user: req.user.id,
         name: req.body.name,
         weight: req.body.weight,
         rep: req.body.rep
@@ -39,7 +48,7 @@ router.put('/:workoutid', (req, res) => {
 });
 
 // Remove a workout log
-router.delete('/:workoutid', (req, res) => {
+router.delete('/:workoutid', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.findByIdAndDelete(req.params.workoutid)
         .then(res.status(204).end())
         .catch(err => console.log(err));
