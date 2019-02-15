@@ -54,4 +54,4 @@ router.delete('/:workoutid', passport.authenticate('jwt', { session: false }), (
         .catch(err => console.log(err));
 });
 
-module.exports = router
+module.exports = router;

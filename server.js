@@ -39,7 +39,7 @@ mongoose
 require('./config/passport')(passport)
 
 // Routers
-//app.use('/api/profile', profile);
+app.use('/api/profile', profile);
 app.use('/api/user', user);
 app.use('/api/workout', workout);
 

@@ -2,16 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ProfileSchema = new Schema({
-    weight: {
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    feet: {
         type: Number
     },
-    height: {
-        feet: {
-            type: Number
-        },
-        inch: {
-            type: Number
-        }
+    inch: {
+        type: Number
     },
     weightGoal: {
         type: Number
