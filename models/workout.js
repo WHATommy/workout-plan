@@ -7,7 +7,8 @@ const WorkoutSchema = new Schema({
         ref: 'users'
     },
     name: {
-        type: String
+        type: String,
+        required: true
     },
     weight: {
         type: Number

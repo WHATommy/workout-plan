@@ -27,4 +27,9 @@ module.exports = function validateWorkoutInput(data) {
     if (!validator.isInt(data.weight)) {
         errors.weight = 'Reps must be a number';
     }
+
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    };
 }

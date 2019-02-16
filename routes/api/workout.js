@@ -2,7 +2,11 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+// Workout model
 const Workout = require('../../models/workout');
+
+// Input validation
+const validateWorkoutInput = require('../../validation/workout');
 
 // Retrieve ALL workout logs
 router.get('/', (req, res) => {
@@ -21,6 +25,12 @@ router.get('/user', passport.authenticate('jwt', { session: false }), (req, res)
 
 // Create a workout log
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { errors, isValid } = validateWorkoutInput(req.body)
+
+    if (!isValid) {
+        return res.status(400).json(errors)
+    }
+
     const workout = new Workout({
         user: req.user.id,
         name: req.body.name,
@@ -35,6 +45,12 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
 // Update a workout log
 router.put('/:workoutid', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { errors, isValid } = validateWorkoutInput(req.body)
+
+    if (!isValid) {
+        return res.status(400).json(errors)
+    }
+
     const workoutUpdate = {
         user: req.user.id,
         name: req.body.name,
