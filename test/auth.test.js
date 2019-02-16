@@ -1,50 +1,47 @@
-const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonwebtoken = require('jsonwebtoken');
 const faker = require('faker');
 
-const { secretOrKey } = require('../config/keys_dev')
+const { secretOrKey } = require('../config/keys_dev');
+const { User } = require('../models/user');
 
-const expect = chai - expect;
+const expect = chai.expect;
 chai.use(chaiHttp);
 
-discribe('Integration tests for: /api/user', function () {
+describe('Integration tests for: /api/user', function () {
     let testUser, jwtToken;
 
     beforeEach(function () {
         testUser = createFakerUser();
 
-        return User.hashPassword(testUser.password)
-            .then(hashedPassword => {
-                return User.create({
-                    username: testUser.userName,
-                    email: testUser.email,
-                    password: hashedPassword,
-                    password2: hashedPassword
-                })
-                    .then(createdUser => {
-                        testUser.id = createUser.id;
+        return User.create({
+            username: testUser.userName,
+            email: testUser.email,
+            password: hashedPassword,
+            password2: hashedPassword
+        })
+            .then(createdUser => {
+                testUser.id = createdUser.id;
 
-                        jwtToken = jsonwebtoken.sign(
-                            {
-                                user: {
-                                    id: testUser.id,
-                                    username: testUser.userName,
-                                    email: testUser.email
-                                }
-                            },
-                            secretOrKey,
-                            {
-                                algorithm: 'HS256',
-                                expiresIn: 21600,
-                                subject: testUser.username
-                            }
-                        );
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+                jwtToken = jsonwebtoken.sign(
+                    {
+                        user: {
+                            id: testUser.id,
+                            username: testUser.userName,
+                            email: testUser.email
+                        }
+                    },
+                    secretOrKey,
+                    {
+                        algorithm: 'HS256',
+                        expiresIn: 21600,
+                        subject: testUser.username
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
             });
     });
 
@@ -52,7 +49,7 @@ discribe('Integration tests for: /api/user', function () {
         return chai.request(app)
             .post('/api/user/login')
             .send({
-                username: testUser.username,
+                email: testUser.email,
                 password: testUser.password
             })
             .then(res => {
@@ -67,8 +64,7 @@ discribe('Integration tests for: /api/user', function () {
                 expect(jwtPayload.user).to.be.a('object');
                 expect(jwtPayload.user).to.deep.include({
                     username: testUser.username,
-                    email: testUser.email,
-                    name: testUser.name
+                    email: testUser.email
                 });
             });
     });
