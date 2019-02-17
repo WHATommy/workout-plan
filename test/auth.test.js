@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonwebtoken = require('jsonwebtoken');
@@ -5,60 +6,91 @@ const faker = require('faker');
 
 const { secretOrKey } = require('../config/keys_dev');
 const { User } = require('../models/user');
+const { app, startServer, stopServer } = require('../server');
 
 const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Integration tests for: /api/user', function () {
-    let testUser, jwtToken;
+    let testUser;
+    let jwtToken;
+    let JWT_SECRET = secretOrKey
+
+    before(function () {
+        return startServer(true);
+    });
+
+    after(function () {
+        return stopServer();
+    });
 
     beforeEach(function () {
         testUser = createFakerUser();
 
-        return User.create({
-            username: testUser.userName,
-            email: testUser.email,
-            password: hashedPassword,
-            password2: hashedPassword
-        })
-            .then(createdUser => {
-                testUser.id = createdUser.id;
-
-                jwtToken = jsonwebtoken.sign(
-                    {
-                        user: {
-                            id: testUser.id,
-                            username: testUser.userName,
-                            email: testUser.email
-                        }
-                    },
-                    secretOrKey,
-                    {
-                        algorithm: 'HS256',
-                        expiresIn: 21600,
-                        subject: testUser.username
-                    }
-                );
+        return User.hashPassword(testUser.password).then(hashedPassword => {
+            return User.create({
+                username: testUser.username,
+                email: testUser.email,
+                password: hashedPassword,
+                password2: hashedPassword
             })
-            .catch(err => {
-                console.log(err);
-            });
+                .then(createdUser => {
+                    testUser.id = createdUser.id;
+
+                    jwtToken = jsonwebtoken.sign(
+                        {
+                            user: {
+                                id: testUser.id,
+                                email: testUser.email
+                            }
+                        },
+                        secretOrKey,
+                        {
+                            algorithm: 'HS256',
+                            expiresIn: 21600,
+                            subject: testUser.email
+                        }
+                    );
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        });
+    });
+
+    afterEach(function () {
+        return new Promise((resolve, reject) => {
+            mongoose.connection.dropDatabase()
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(err => {
+                    console.error(err);
+                    reject(err);
+                });
+        });
     });
 
     it('Should login correctly and return a valid JSON Web Token', function () {
+        console.log(testUser);
+        let email = testUser.email;
+        let password = testUser.password;
+        console.log(`--------${email}, ${password}--------`);
         return chai.request(app)
             .post('/api/user/login')
             .send({
-                email: testUser.email,
-                password: testUser.password
+                email: email,
+                password: password
             })
             .then(res => {
-                expect(res).to.have.status(HTTP_STATUS_CODES.OK);
+                expect(res).to.have.status(200);
                 expect(res).to.be.json;
                 expect(res.body).to.be.a('object');
-                expect(res.body).to.include.keys('jwtToken');
+                expect(res.body).to.include.keys('success', 'token');
 
-                const jwtPayload = jsonwebtoken.verify(res.body.jwtToken, JWT_SECRET, {
+                const token = res.body.token.replace("Bearer", "");
+
+                const jwtPayload = jsonwebtoken.verify(token, JWT_SECRET, {
                     algorithm: ['HS256']
                 });
                 expect(jwtPayload.user).to.be.a('object');
@@ -77,7 +109,7 @@ describe('Integration tests for: /api/user', function () {
             .post('/api/user/refresh')
             .set('Authorization', `Bearer ${jwtToken}`)
             .then(res => {
-                expect(res).to.have.status(HTTP_STATUS_CODES.OK);
+                expect(res).to.have.status(200);
                 expect(res).to.be.json;
                 expect(res.body).to.be.a('object');
                 expect(res.body).to.include.keys('jwtToken');
@@ -98,10 +130,9 @@ describe('Integration tests for: /api/user', function () {
 
     function createFakerUser() {
         return {
-            name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-            username: `${faker.lorem.word()}${faker.random.number(100)}`,
-            password: faker.internet.password(),
-            email: faker.internet.email()
+            username: faker.internet.userName(),
+            email: faker.internet.email(),
+            password: faker.internet.password()
         };
     }
 });

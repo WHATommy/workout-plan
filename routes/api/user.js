@@ -10,7 +10,7 @@ const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 
 // Load User model
-const User = require('../../models/user');
+const { User } = require('../../models/user');
 
 // GET all users
 router.get('/', (req, res) => {
@@ -75,7 +75,7 @@ router.post('/login', (req, res, ) => {
         .then(user => {
             bcrypt.compare(password, user.password).then(isMatch => {
                 if (isMatch) {
-                    const payload = { id: user.id, username: user.username };
+                    const payload = { id: user.id, email: user.email };
 
                     jwt.sign(
                         payload,
