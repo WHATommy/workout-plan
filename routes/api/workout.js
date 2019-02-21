@@ -11,7 +11,7 @@ const validateWorkoutInput = require('../../validation/workout');
 // Retrieve ALL workout logs
 router.get('/', (req, res) => {
     Workout.find()
-        .then()
+        .sort({ date: -1 })
         .then(workout => res.json(workout))
         .catch(err => res.status(404).json({ noWorkouts: 'it is empty here' }));
 });
@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 // Retrieve current user's workout logs
 router.get('/user', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.find({ user: req.user.id })
+        .sort({ date: -1 })
         .then(userWorkout => res.status(200).json(userWorkout))
         .catch(err => console.log(err))
 })

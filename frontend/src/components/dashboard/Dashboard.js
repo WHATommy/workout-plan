@@ -46,7 +46,7 @@ class Dashboard extends Component {
             weight: this.state.weight,
             reps: this.state.reps
         };
-        this.props.createWorkout(workoutInput)
+        this.props.createWorkout(workoutInput);
     }
 
     render() {
