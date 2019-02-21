@@ -13,10 +13,21 @@ class Dashboard extends Component {
             weight: '',
             reps: '',
             workoutLogs: [],
+            workoutData: [],
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    graphData() {
+        const workoutData = this.state.workoutLogs.map(data => {
+            return {
+                name: data.name,
+                value: data.weight
+            }
+        })
+        this.setState({ workoutData: workoutData });
     }
 
     jsonEqual(a, b) {
@@ -25,15 +36,18 @@ class Dashboard extends Component {
 
     componentDidUpdate() {
         this.props.getWorkout();
+
         const workouts = this.props.workoutLogs.workoutLogs
+
         if (!this.jsonEqual(workouts, this.state.workoutLogs)) {
             this.setState({ workoutLogs: workouts });
-        }
-        console.log(this.state.workoutLogs.workoutLogs)
+        };
+
     }
 
     componentDidMount() {
         this.props.getWorkout();
+
     }
 
     onChange(e) {
@@ -63,7 +77,7 @@ class Dashboard extends Component {
                     <WorkoutLogsMapping workoutLogs={this.state.workoutLogs} />
                 </div>
                 <div>
-                    <LineGraph />
+                    <LineGraph workoutData={this.state.workoutLogs} />
                 </div>
             </div>
         )
@@ -82,4 +96,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { getWorkout, createWorkout })(Dashboard)
+export default connect(mapStateToProps, { getWorkout })(Dashboard)
