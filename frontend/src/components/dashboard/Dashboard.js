@@ -1,18 +1,38 @@
 import React, { Component } from 'react';
-import WorkoutLogsFormat from '../common/WorkoutLogs/WorkoutLogsFormat';
+import WorkoutLogsMapping from '../common/WorkoutLogs/WorkoutLogsMapping';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createWorkout } from '../../actions/WorkoutAction';
+import { createWorkout, getWorkout } from '../../actions/WorkoutAction';
 
 class Dashboard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
+            name: '',
+            weight: '',
+            reps: '',
             workoutLogs: [],
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    jsonEqual(a, b) {
+        return JSON.stringify(a) === JSON.stringify(b);
+    }
+
+    componentDidUpdate() {
+        this.props.getWorkout();
+        const workouts = this.props.workoutLogs.workoutLogs
+        if (!this.jsonEqual(workouts, this.state.workoutLogs)) {
+            this.setState({ workoutLogs: workouts });
+        }
+        console.log(this.state.workoutLogs.workoutLogs)
+    }
+
+    componentDidMount() {
+        this.props.getWorkout();
     }
 
     onChange(e) {
@@ -23,8 +43,8 @@ class Dashboard extends Component {
         e.preventDefault();
         const workoutInput = {
             name: this.state.name,
-            weight: parseInt(this.state.weight),
-            reps: parseInt(this.state.reps)
+            weight: this.state.weight,
+            reps: this.state.reps
         };
         this.props.createWorkout(workoutInput)
     }
@@ -33,13 +53,13 @@ class Dashboard extends Component {
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
-                    <input type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} placeholder="name"/>
-                    <input type='text' name='weight' value={this.state.weight} onChange={(e) => this.onChange(e)} placeholder="weight"/>
-                    <input type='text' name='reps' value={this.state.reps} onChange={(e) => this.onChange(e)} placeholder="reps"/>
+                    <input type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} placeholder="name" />
+                    <input type='text' name='weight' value={this.state.weight} onChange={(e) => this.onChange(e)} placeholder="weight" />
+                    <input type='text' name='reps' value={this.state.reps} onChange={(e) => this.onChange(e)} placeholder="reps" />
                     <button type='submit'>Submit</button>
                 </form>
                 <div>
-                    <WorkoutLogsFormat workoutLogs={this.state.workoutLogs} />
+                    <WorkoutLogsMapping workoutLogs={this.state.workoutLogs} />
                 </div>
             </div>
         )
@@ -48,7 +68,9 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
     workoutLogs: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    getWorkout: PropTypes.func.isRequired,
+    createWorkout: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -56,4 +78,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { createWorkout })(Dashboard)
+export default connect(mapStateToProps, { getWorkout, createWorkout })(Dashboard)

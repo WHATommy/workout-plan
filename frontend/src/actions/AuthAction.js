@@ -1,12 +1,12 @@
 import { GET_ERRORS, SET_CURRENT_USER } from './Types';
 import Axios from 'axios';
-import SetAuthToken from '../utils/SetAuthToken';
+import SetAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
     Axios
-        .post('/api/users/register', userData)
+        .post('http://localhost:5000/api/user/register', userData)
         .then(history.push('login'))
         .catch(err => {
             dispatch({
@@ -18,8 +18,9 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login User
 export const loginUser = (userData) => dispatch => {
+    console.log(userData)
     Axios
-        .post('/api/users/login')
+        .post('http://localhost:5000/api/user/login', userData)
         .then(res => {
             // Save to local storage
             const { token } = res.data;
@@ -27,7 +28,7 @@ export const loginUser = (userData) => dispatch => {
             // Set token to local storage
             localStorage.setItem('jwtToken', token);
 
-            // Set token to  authe header
+            // Set token to auth header
             SetAuthToken(token);
 
             // Decode token to get user data

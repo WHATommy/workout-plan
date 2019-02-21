@@ -6,13 +6,15 @@ import {
     DELETE_WORKOUT
 } from '../actions/Types';
 import Axios from 'axios';
-
+import store from '../store';
+import setAuthToken from '../utils/setAuthToken';
+import { setCurrentUser } from '../actions/AuthAction';
+import jwt_decode from 'jwt-decode';
 
 export const createWorkout = (workout) => dispatch => {
     Axios
-        .post('http://localhost:5050/api/workout/', workout)
+        .post('http://localhost:5000/api/workout/', workout)
         .then(res => {
-            console.log(res);
             alert('Workout created!')
         })
         .catch(err => {
@@ -23,9 +25,9 @@ export const createWorkout = (workout) => dispatch => {
         });
 };
 
-export const getWorkout = dispatch => {
+export const getWorkout = () => dispatch => {
     Axios
-        .post('http://localhost:5050/api/workout/')
+        .get('http://localhost:5000/api/workout/')
         .then(res => {
             const workoutLogs = res.data.map(data => {
                 return {
@@ -35,9 +37,20 @@ export const getWorkout = dispatch => {
                     date: data.date
                 }
             });
+            if (localStorage.jwtToken) {
+                setAuthToken(localStorage.jwtToken)
+                const decoded = jwt_decode(localStorage.jwtToken)
+                store.dispatch(setCurrentUser(decoded));
+            }
             dispatch({
                 type: GET_WORKOUT,
                 payload: workoutLogs
-            })
+            });
         })
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
 }

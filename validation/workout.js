@@ -6,26 +6,18 @@ module.exports = function validateWorkoutInput(data) {
 
     data.name = !isEmpty(data.name) ? data.name : '';
     data.weight = !isEmpty(data.weight) ? data.weight : '';
-    data.rep = !isEmpty(data.rep) ? data.rep : '';
+    data.reps = !isEmpty(data.reps) ? data.reps : '';
 
-    if (!validator.isEmpty(data.name)) {
+    if (validator.isEmpty(data.name)) {
         errors.name = 'Workout name is required';
     }
 
-    if (!validator.isEmpty(data.weight)) {
+    if (validator.isEmpty(data.weight)) {
         errors.weight = 'Weight is required';
     }
 
-    if (!validator.isEmpty(data.rep)) {
-        errors.rep = 'Rep is required';
-    }
-
-    if (!validator.isInt(data.weight)) {
-        errors.weight = 'Weight must be a number';
-    }
-
-    if (!validator.isInt(data.weight)) {
-        errors.weight = 'Reps must be a number';
+    if (validator.isEmpty(data.reps)) {
+        errors.reps = 'reps is required';
     }
 
     return {

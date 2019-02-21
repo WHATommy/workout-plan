@@ -35,7 +35,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         user: req.user.id,
         name: req.body.name,
         weight: req.body.weight,
-        rep: req.body.rep
+        reps: req.body.reps
     });
 
     workout.save()
@@ -55,7 +55,7 @@ router.put('/:workoutid', passport.authenticate('jwt', { session: false }), (req
         user: req.user.id,
         name: req.body.name,
         weight: req.body.weight,
-        rep: req.body.rep
+        reps: req.body.reps
     };
 
     Workout.findByIdAndUpdate(req.params.workoutid, workoutUpdate)

@@ -61,37 +61,50 @@ router.post('/register', (req, res) => {
 })
 
 // GET/LOGIN user
-router.post('/login', (req, res, ) => {
+router.post('/login', (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 
+    // Check Validation
     if (!isValid) {
-        return res.status(400).json(errors)
+        return res.status(400).json(errors);
     }
 
     const email = req.body.email;
     const password = req.body.password;
+    console.log(email, password);
+    // Find user by email
+    User.findOne({ email }).then(user => {
+        // Check for user
+        if (!user) {
+            errors.email = 'Email not found';
+            return res.status(404).json(errors);
+        }
 
-    User.findOne({ email })
-        .then(user => {
-            bcrypt.compare(password, user.password).then(isMatch => {
-                if (isMatch) {
-                    const payload = { id: user.id, email: user.email };
+        // Check Password
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if (isMatch) {
+                // User Matched
+                const payload = { id: user.id, username: user.username }; // Create JWT Payload
 
-                    jwt.sign(
-                        payload,
-                        keys.secretOrKey,
-                        { expiresIn: 21600 },
-                        (err, token) => {
-                            console.log(token)
-                            res.json({
-                                success: true,
-                                token: 'Bearer ' + token
-                            });
+                // Sign Token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey,
+                    { expiresIn: 3600 },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: 'Bearer ' + token
                         });
-                }
-            })
-        })
-})
+                    }
+                );
+            } else {
+                errors.password = 'Password incorrect';
+                return res.status(400).json(errors);
+            }
+        });
+    });
+});
 
 //GET current user
 router.use('/current', passport.authenticate('jwt', { session: false }), (req, res) => {

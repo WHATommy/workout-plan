@@ -1,8 +1,7 @@
 import { GET_WORKOUT } from '../actions/Types';
-import { isError } from 'util';
 
 const initialState = {
-    workout: [],
+    workoutLogs: [],
     errors: {}
 }
 
@@ -11,7 +10,7 @@ export default function (state = initialState, action) {
         case GET_WORKOUT:
             return {
                 ...state,
-                workout: action.payload
+                workoutLogs: action.payload
             };
         default:
             return state;
