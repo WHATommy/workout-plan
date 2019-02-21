@@ -2,7 +2,6 @@ import React from 'react';
 import WorkoutLogsFormat from './WorkoutLogsFormat';
 
 const WorkoutLogsMapping = (props) => {
-    console.log(props)
     return (
         <div>
             {props.workoutLogs.map(data =>
@@ -10,6 +9,7 @@ const WorkoutLogsMapping = (props) => {
                     name={data.name}
                     weight={data.weight}
                     reps={data.reps}
+                    date={data.date}
                 />
             )}
         </div>
