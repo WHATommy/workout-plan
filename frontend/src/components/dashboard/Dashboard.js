@@ -13,7 +13,6 @@ class Dashboard extends Component {
             weight: '',
             reps: '',
             workoutLogs: [],
-            workoutData: [],
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -96,4 +95,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { getWorkout })(Dashboard)
+export default connect(mapStateToProps, { getWorkout, createWorkout })(Dashboard)

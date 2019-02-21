@@ -12,10 +12,12 @@ const LineGraph = (props) => {
     const workoutDataFormatted = props.workoutData.map(data => {
         return {
             label: data.name,
-            value: data.weight
+            value: data.weight,
+            date: data.date
         }
     });
-    JSON.stringify(workoutDataFormatted)
+    workoutDataFormatted.reverse();
+    JSON.stringify(workoutDataFormatted);
 
     const chartConfigs = {
         type: 'line',
