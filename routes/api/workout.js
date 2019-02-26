@@ -48,9 +48,6 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         })
 });
 
-
-// TODOS
-
 // Update a workout folder
 router.put('/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { errors, isValid } = validateWorkoutFolderInput(req.body)
