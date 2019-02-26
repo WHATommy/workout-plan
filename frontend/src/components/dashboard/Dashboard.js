@@ -66,6 +66,9 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
+                <div>
+                    <LineGraph workoutData={this.state.workoutLogs} />
+                </div>
                 <form onSubmit={this.onSubmit}>
                     <input type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} placeholder="name" />
                     <input type='text' name='weight' value={this.state.weight} onChange={(e) => this.onChange(e)} placeholder="weight" />
@@ -74,9 +77,6 @@ class Dashboard extends Component {
                 </form>
                 <div>
                     <WorkoutLogsMapping workoutLogs={this.state.workoutLogs} />
-                </div>
-                <div>
-                    <LineGraph workoutData={this.state.workoutLogs} />
                 </div>
             </div>
         )

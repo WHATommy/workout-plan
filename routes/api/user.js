@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
+const async = require('async');
+const series = require('async/series');
 
 // Load input validator
 const validateRegisterInput = require('../../validation/register');
@@ -11,6 +13,7 @@ const validateLoginInput = require('../../validation/login');
 
 // Load User model
 const { User } = require('../../models/user');
+const Workout = require('../../models/workout')
 
 // GET all users
 router.get('/', (req, res) => {
@@ -35,29 +38,42 @@ router.post('/register', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    User.findOne({ email: req.body.email }).then(user => {
-        if (user) {
-            errors.email = 'Email already in use';
-            return res.status(400).json(errors)
-        } else {
-            const newUser = new User({
-                username: req.body.username,
-                email: req.body.email,
-                password: req.body.password
-            });
+    function createWorkout(user) {
+        const newFolder = new Workout({
+            user: user._id,
+            workoutFolders: []
+        })
+        newFolder
+            .save()
+            .then(workout => res.json(workout))
+            .catch(err => console.log(err))
+    }
 
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    newUser.password = hash;
-                    newUser
-                        .save()
-                        .then(user => res.json(user))
-                        .catch(err => console.log(err));
+    User.findOne({ email: req.body.email })
+        .then(user => {
+            if (user) {
+                errors.email = 'Email already in use';
+                return res.status(400).json(errors)
+            } else {
+                const newUser = new User({
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: req.body.password
                 });
-            });
-        }
-    })
+
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err;
+                        newUser.password = hash;
+                        newUser
+                            .save()
+                            .then(createWorkout(newUser))
+                            .then(user => res.json(user))
+                            .catch(err => console.log(err));
+                    });
+                });
+            }
+        })
 })
 
 // GET/LOGIN user

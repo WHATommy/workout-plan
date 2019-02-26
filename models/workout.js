@@ -6,20 +6,32 @@ const WorkoutSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
-    name: {
-        type: String,
-        required: true
-    },
-    weight: {
-        type: Number
-    },
-    reps: {
-        type: Number
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
+    workoutFolders: [
+        {
+            workoutFolderName: {
+                type: String,
+                required: true
+            },
+            workoutFolderData: [
+                {
+                    name: {
+                        type: String,
+                        required: true
+                    },
+                    weight: {
+                        type: Number
+                    },
+                    reps: {
+                        type: Number
+                    },
+                    date: {
+                        type: Date,
+                        default: Date.now
+                    }
+                }
+            ]
+        }
+    ]
 })
 
 module.exports = Workout = mongoose.model('workouts', WorkoutSchema);

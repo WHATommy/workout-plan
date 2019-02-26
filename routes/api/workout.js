@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const passport = require('passport');
 
 // Workout model
@@ -7,6 +8,7 @@ const Workout = require('../../models/workout');
 
 // Input validation
 const validateWorkoutInput = require('../../validation/workout');
+const validateWorkoutFolderInput = require('../../validation/workoutFolder');
 
 // Retrieve ALL workout logs
 router.get('/', (req, res) => {
@@ -19,52 +21,54 @@ router.get('/', (req, res) => {
 // Retrieve current user's workout logs
 router.get('/user', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.find({ user: req.user.id })
-        .sort({ date: -1 })
         .then(userWorkout => res.status(200).json(userWorkout))
         .catch(err => console.log(err))
 })
 
-// Create a workout log
+// Create a workout folders
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const { errors, isValid } = validateWorkoutInput(req.body)
+    const { errors, isValid } = validateWorkoutFolderInput(req.body)
 
     if (!isValid) {
         return res.status(400).json(errors)
     }
 
-    const workout = new Workout({
-        user: req.user.id,
-        name: req.body.name,
-        weight: req.body.weight,
-        reps: req.body.reps
-    });
+    Workout.find({ user: req.user.id })
+        .then(workoutData => {
+            const newWorkoutFolder = {
+                workoutFolderName: req.body.workoutFolderName
+            };
 
-    workout.save()
-        .then(workout => res.json(workout))
-        .catch(err => console.log(err));
+            workoutData[0].workoutFolders.unshift(newWorkoutFolder);
+
+            workoutData[0].save()
+                .then(workout => res.json(workout))
+                .catch(err => console.log(err));
+        })
 });
 
-// Update a workout log
-router.put('/:workoutid', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const { errors, isValid } = validateWorkoutInput(req.body)
+// Update a workout folder
+router.put('/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { errors, isValid } = validateWorkoutFolderInput(req.body)
 
     if (!isValid) {
         return res.status(400).json(errors)
     }
+    Workout.find({ user: req.user.id })
+        .then(workoutData => {
+            console.log(workoutData[0].workoutFolderName)
+            const workoutFolderUpdate = {
+                workoutFolderName: req.body.workoutFolderName
+            };
 
-    const workoutUpdate = {
-        user: req.user.id,
-        name: req.body.name,
-        weight: req.body.weight,
-        reps: req.body.reps
-    };
+            Workout.findByIdAndUpdate(req.params.workoutfolderid, workoutFolderUpdate)
+                .then(workoutData => res.status(204).json(workoutData))
+                .catch(err => console.log(err));
+        })
 
-    Workout.findByIdAndUpdate(req.params.workoutid, workoutUpdate)
-        .then(workout => res.status(204).json(workout))
-        .catch(err => console.log(err));
 });
 
-// Remove a workout log
+// Remove a workout folder
 router.delete('/:workoutid', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.findByIdAndDelete(req.params.workoutid)
         .then(res.status(204).end())
