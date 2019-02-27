@@ -14,6 +14,7 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
+import Folders from './components/dashboard/Folders'
 
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -42,6 +43,7 @@ class App extends Component {
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
+            <Route exact path='/folders' component={Folders} />
             <Route exact path='/dashboard' component={Dashboard} />
             <Footer />
           </div>

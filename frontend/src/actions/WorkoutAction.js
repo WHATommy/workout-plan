@@ -13,8 +13,8 @@ import jwt_decode from 'jwt-decode';
 
 export const createWorkout = (workout) => dispatch => {
     Axios
-        .post('http://localhost:5000/api/workout/', workout)
-        .then(res => {
+        .post('http://localhost:5000/api/workout/workoutlog/', workout)
+        .then(workout => {
             alert('Workout created!')
         })
         .catch(err => {
@@ -27,7 +27,7 @@ export const createWorkout = (workout) => dispatch => {
 
 export const getWorkout = () => dispatch => {
     Axios
-        .get('http://localhost:5000/api/workout/')
+        .get('http://localhost:5000/api/workout/workoutlog/')
         .then(res => {
             const workoutLogs = res.data.map(data => {
                 return {

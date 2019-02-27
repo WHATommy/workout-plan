@@ -19,16 +19,6 @@ class Dashboard extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    graphData() {
-        const workoutData = this.state.workoutLogs.map(data => {
-            return {
-                name: data.name,
-                value: data.weight
-            }
-        })
-        this.setState({ workoutData: workoutData });
-    }
-
     jsonEqual(a, b) {
         return JSON.stringify(a) === JSON.stringify(b);
     }

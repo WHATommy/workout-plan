@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 // Workout model
-const { Workout, WorkoutFolders, WorkoutFolderData } = require('../../models/workout');
+const { Workout } = require('../../models/workout');
 
 // Input validation
 const validateWorkoutInput = require('../../validation/workout');
@@ -19,28 +19,30 @@ router.get('/', (req, res) => {
 });
 
 // Retrieve current user's workout folders
-router.get('/user', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/workoutfolder/', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.find({ user: req.user.id })
         .then(userWorkout => res.status(200).json(userWorkout))
         .catch(err => console.log(err))
 });
 
 // Retrieve current user's targeted folder workout logs
-router.get('/user/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/workoutfolder/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.findOne({ user: req.user.id })
         .then(workout => {
+
             workout.workoutFolders.map(folder => {
                 if (folder._id == req.params.workoutfolderid) {
                     workout = folder
                 }
             });
+
             res.status(200).json(workout)
         })
         .catch(err => console.log(err))
 });
 
 // Create a workout folder
-router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/workoutfolder/', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { errors, isValid } = validateWorkoutFolderInput(req.body)
 
     if (!isValid) {
@@ -49,10 +51,12 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
     Workout.findOne({ user: req.user.id })
         .then(workout => {
+
             const newWorkoutFolder = {
                 user: req.user.id,
                 workoutFolderName: req.body.workoutFolderName
             };
+
             workout.workoutFolders.unshift(newWorkoutFolder);
 
             workout.save()
@@ -71,12 +75,14 @@ router.post('/workoutlog/:workoutfolderid', passport.authenticate('jwt', { sessi
 
     Workout.findOne({ user: req.user.id })
         .then(workout => {
+
             const newWorkoutFolder = {
                 user: req.user.id,
                 name: req.body.name,
                 weight: req.body.weight,
                 reps: req.body.reps
             };
+
             workout.workoutFolders.map(folder => {
                 if (folder._id == req.params.workoutfolderid) {
                     folder.workoutFolderData.unshift(newWorkoutFolder)
@@ -90,7 +96,7 @@ router.post('/workoutlog/:workoutfolderid', passport.authenticate('jwt', { sessi
 });
 
 // Update a workout folder
-router.put('/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.put('/workoutfolder/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { errors, isValid } = validateWorkoutFolderInput(req.body)
 
     if (!isValid) {
@@ -145,7 +151,23 @@ router.put('/workoutlog/:workoutfolderid/:workoutdataid', passport.authenticate(
         });
 });
 
-// Remove a workout data
+// Remove a workout folder
+router.delete('/workoutfolder/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Workout.findOne({ user: req.user.id })
+        .then(workout => {
+
+            workout.workoutFolders.map(folder => {
+                if (folder._id == req.params.workoutfolderid) {
+                    folder.remove()
+                }
+            });
+
+            workout.save()
+                .then(workout => res.status(204).json(workout))
+        });
+});
+
+// Remove a workout log
 router.delete('/workoutlog/:workoutfolderid/:workoutdataid', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.findOne({ user: req.user.id })
         .then(workout => {
@@ -157,22 +179,6 @@ router.delete('/workoutlog/:workoutfolderid/:workoutdataid', passport.authentica
                             folderData.remove()
                         }
                     });
-                }
-            });
-
-            workout.save()
-                .then(workout => res.status(204).json(workout))
-        });
-});
-
-// Remove a workout folder
-router.delete('/:workoutid', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Workout.findOne({ user: req.user.id })
-        .then(workout => {
-
-            workout.workoutFolders.map(folder => {
-                if (folder._id == req.params.workoutid) {
-                    folder.remove()
                 }
             });
 
