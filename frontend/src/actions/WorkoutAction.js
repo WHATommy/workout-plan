@@ -37,6 +37,7 @@ export const getWorkout = id => dispatch => {
             const folderId = res.data._id
             const workoutLogs = res.data.workoutFolderData.map(data => {
                 return {
+                    id: data._id,
                     name: data.name,
                     weight: data.weight,
                     reps: data.reps,
@@ -61,6 +62,35 @@ export const getWorkout = id => dispatch => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response
+            })
+        );
+}
+
+export const deleteWorkout = (folderId, logId) => dispatch => {
+    Axios
+        .delete(`http://localhost:5000/api/workout/workoutlogs/${folderId}/${logId}`)
+        .then(res => {
+            alert('Folder deleted')
+        })
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+}
+
+
+export const editWorkout = (updatedLogs, folderId, logId) => dispatch => {
+    Axios
+        .put(`http://localhost:5000/api/workout/workoutlog/${folderId}/${logId}`, updatedLogs)
+        .then(res => {
+            alert('Edit successful')
+        })
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
             })
         );
 }

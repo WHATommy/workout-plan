@@ -68,7 +68,7 @@ class Dashboard extends Component {
                     <button type='submit'>Submit</button>
                 </form>
                 <div>
-                    <WorkoutLogsMapping workoutLogs={this.state.workoutLogs} />
+                    <WorkoutLogsMapping workoutLogs={this.state.workoutLogs} folderId={this.state.folderId} />
                 </div>
             </div>
         )
