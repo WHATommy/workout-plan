@@ -13,7 +13,7 @@ const validateLoginInput = require('../../validation/login');
 
 // Load User model
 const { User } = require('../../models/user');
-const Workout = require('../../models/workout')
+const { Workout } = require('../../models/workout')
 
 // GET all users
 router.get('/', (req, res) => {

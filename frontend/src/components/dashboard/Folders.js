@@ -22,17 +22,17 @@ class Folders extends Component {
     }
 
     componentDidUpdate() {
-        const workoutFolder = this.props.workoutFolders.workoutFolders
-        console.log(workoutFolder);
+        //this.props.getFolder();
+        const workoutFolder = this.props.workoutFolders.workoutFolders;
         if (!this.jsonEqual(workoutFolder, this.state.workoutFolders)) {
             this.setState({ workoutFolders: workoutFolder });
         };
-
+        console.log(this.state.workoutFolders)
     }
 
     componentDidMount() {
         this.props.getFolder();
-        console.log(this.state.workoutFolders)
+        localStorage.removeItem('folderId')
     }
 
     onChange(e) {
@@ -44,6 +44,7 @@ class Folders extends Component {
         const folderInput = {
             workoutFolderName: this.state.workoutFolderName
         };
+
         this.props.createFolder(folderInput);
     }
 
@@ -64,7 +65,8 @@ Folders.propTypes = {
     workoutFolders: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     getFolder: PropTypes.func.isRequired,
-    createFolder: PropTypes.func.isRequired
+    createFolder: PropTypes.func.isRequired,
+
 }
 
 const mapStateToProps = state => ({

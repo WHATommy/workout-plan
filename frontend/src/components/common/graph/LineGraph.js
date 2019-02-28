@@ -8,7 +8,7 @@ import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const LineGraph = (props) => {
-
+    console.log(props)
     const workoutDataFormatted = props.workoutData.map(data => {
         return {
             label: data.name,
@@ -16,6 +16,7 @@ const LineGraph = (props) => {
             date: data.date
         }
     });
+
     workoutDataFormatted.reverse();
     JSON.stringify(workoutDataFormatted);
 

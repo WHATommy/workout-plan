@@ -13,6 +13,7 @@ class Dashboard extends Component {
             weight: '',
             reps: '',
             workoutLogs: [],
+            folderId: '',
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -24,19 +25,20 @@ class Dashboard extends Component {
     }
 
     componentDidUpdate() {
-        this.props.getWorkout();
-
-        const workouts = this.props.workoutLogs.workoutLogs
+        const workouts = this.props.workoutLogs.workoutLogs.workoutLogs
+        const folderId = this.props.workoutLogs.workoutLogs.folderId
 
         if (!this.jsonEqual(workouts, this.state.workoutLogs)) {
             this.setState({ workoutLogs: workouts });
         };
 
+        if (!this.jsonEqual(folderId, this.state.folderId)) {
+            this.setState({ folderId: folderId });
+        };
     }
 
     componentDidMount() {
         this.props.getWorkout();
-
     }
 
     onChange(e) {
@@ -50,7 +52,7 @@ class Dashboard extends Component {
             weight: this.state.weight,
             reps: this.state.reps
         };
-        this.props.createWorkout(workoutInput);
+        this.props.createWorkout(workoutInput, this.state.folderId);
     }
 
     render() {

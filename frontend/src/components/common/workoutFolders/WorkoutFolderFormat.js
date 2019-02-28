@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { deleteFolder } from '../../../actions/FolderAction';
+import { getWorkout } from '../../../actions/WorkoutAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom'
 
 class WorkoutFolderFormat extends Component {
     constructor(props) {
         super(props);
-
-        this.onDeleteClick = this.onDeleteClick.bind(this);
     }
 
     onDeleteClick(id, event) {
@@ -20,10 +20,22 @@ class WorkoutFolderFormat extends Component {
         }
     }
 
+    onFolderClick(id, event) {
+        event.preventDefault();
+        if (this.props.auth.isAuthenticated) {
+            this.props.getWorkout(id)
+            this.props.history.push('/dashboard')
+        } else {
+            this.props.history.push('/login')
+        }
+    }
+
+
+
     render() {
         return (
             <div>
-                <button>{this.props.name}</button>
+                <button onClick={this.onFolderClick.bind(this, this.props.id)}>{this.props.name}</button>
                 <button>Edit</button>
                 <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
             </div >
@@ -32,7 +44,8 @@ class WorkoutFolderFormat extends Component {
 }
 
 WorkoutFolderFormat.propTypes = {
-    deleteFolder: PropTypes.func.isRequired
+    deleteFolder: PropTypes.func.isRequired,
+    getWorkout: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -41,4 +54,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { deleteFolder })(WorkoutFolderFormat)
+export default connect(mapStateToProps, { deleteFolder, getWorkout })(withRouter(WorkoutFolderFormat))

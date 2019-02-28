@@ -5,9 +5,13 @@ import jwt_decode from 'jwt-decode';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
+    console.log(userData)
     Axios
         .post('http://localhost:5000/api/user/register', userData)
-        .then(history.push('login'))
+        .then(res => {
+            alert('Registration successful!');
+            history.push('/login');
+        })
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
@@ -18,7 +22,6 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login User
 export const loginUser = (userData) => dispatch => {
-    console.log(userData)
     Axios
         .post('http://localhost:5000/api/user/login', userData)
         .then(res => {
@@ -36,6 +39,8 @@ export const loginUser = (userData) => dispatch => {
 
             // Set current user
             dispatch(setCurrentUser(decoded));
+
+            alert('Login successful!');
         })
         .catch(err => {
             dispatch({

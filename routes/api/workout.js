@@ -26,7 +26,7 @@ router.get('/workoutfolder/', passport.authenticate('jwt', { session: false }), 
 });
 
 // Retrieve current user's targeted folder workout logs
-router.get('/workoutfolder/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/workoutlog/:workoutfolderid', passport.authenticate('jwt', { session: false }), (req, res) => {
     Workout.findOne({ user: req.user.id })
         .then(workout => {
 
@@ -75,7 +75,6 @@ router.post('/workoutlog/:workoutfolderid', passport.authenticate('jwt', { sessi
 
     Workout.findOne({ user: req.user.id })
         .then(workout => {
-
             const newWorkoutFolder = {
                 user: req.user.id,
                 name: req.body.name,
@@ -90,7 +89,7 @@ router.post('/workoutlog/:workoutfolderid', passport.authenticate('jwt', { sessi
             });
 
             workout.save()
-                .then(workout => res.json(workout))
+                .then(workout => res.status(200).json(workout))
                 .catch(err => console.log(err));
         })
 });

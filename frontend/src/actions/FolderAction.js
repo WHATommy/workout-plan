@@ -12,14 +12,12 @@ import { setCurrentUser } from '../actions/AuthAction';
 import jwt_decode from 'jwt-decode';
 
 export const createFolder = (folder) => dispatch => {
-    console.log(folder)
     Axios
         .post('http://localhost:5000/api/workout/workoutfolder/', folder)
         .then(folder => {
             alert('Folder created!')
         })
         .catch(err => {
-            console.log(err)
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
@@ -31,7 +29,6 @@ export const getFolder = () => dispatch => {
     Axios
         .get('http://localhost:5000/api/workout/workoutfolder/')
         .then(folder => {
-            console.log(folder)
             const workoutFolder = folder.data[0].workoutFolders.map(data => {
                 return {
                     id: data._id,
@@ -52,7 +49,6 @@ export const getFolder = () => dispatch => {
 }
 
 export const deleteFolder = id => dispatch => {
-    console.log(id)
     Axios
         .delete(`http://localhost:5000/api/workout/workoutfolder/${id}`)
         .then(res => {
