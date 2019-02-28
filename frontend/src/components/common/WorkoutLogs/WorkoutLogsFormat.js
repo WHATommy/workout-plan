@@ -35,15 +35,14 @@ class WorkoutLogsFormat extends Component {
             reps: `${this.state.reps}`
         };
 
-        console.log(updatedLogs)
-        this.props.editWorkout(updatedLogs);
+        this.props.editWorkout(updatedLogs, this.props.folderId, this.props.id);
         this.setState({ edit: false })
     }
 
     onDeleteClick(id, event) {
         event.preventDefault();
         if (this.props.auth.isAuthenticated) {
-            this.props.deleteWorkout(id)
+            this.props.deleteWorkout(this.props.folderId, this.props.id)
         } else {
             this.props.history.push('/login')
         }
@@ -82,6 +81,7 @@ class WorkoutLogsFormat extends Component {
                 <p>{this.props.reps}</p>
                 <p>{this.props.date}</p>
                 <button onClick={(e) => this.onEditClick(e)}>Edit</button>
+                <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
             </>
         )
         return (

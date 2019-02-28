@@ -68,9 +68,9 @@ export const getWorkout = id => dispatch => {
 
 export const deleteWorkout = (folderId, logId) => dispatch => {
     Axios
-        .delete(`http://localhost:5000/api/workout/workoutlogs/${folderId}/${logId}`)
+        .delete(`http://localhost:5000/api/workout/workoutlog/${folderId}/${logId}`)
         .then(res => {
-            alert('Folder deleted')
+            alert('Log deleted')
         })
         .catch(err =>
             dispatch({

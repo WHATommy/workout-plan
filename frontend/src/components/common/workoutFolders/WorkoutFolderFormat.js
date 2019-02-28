@@ -11,7 +11,7 @@ class WorkoutFolderFormat extends Component {
         this.state = {
             updatedFolder: '',
             edit: false
-        }
+        };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -26,37 +26,38 @@ class WorkoutFolderFormat extends Component {
         const updatedFolder = {
             workoutFolderName: this.state.updatedFolder
         };
-        console.log(updatedFolder)
         this.props.editFolder(updatedFolder, this.props.id);
-        this.setState({ edit: false })
+        this.setState({ edit: false });
     }
 
     onDeleteClick(id, event) {
         event.preventDefault();
-        console.log(this.props.id)
+        console.log(this.props.id);
         if (this.props.auth.isAuthenticated) {
-            this.props.deleteFolder(id)
+            this.props.deleteFolder(id);
         } else {
-            this.props.history.push('/login')
+            this.props.history.push('/login');
         }
     }
 
     onFolderClick(id, event) {
         event.preventDefault();
         if (this.props.auth.isAuthenticated) {
-            this.props.getWorkout(id)
-            this.props.history.push('/dashboard')
+            this.props.getWorkout(id);
+            this.props.history.push('/dashboard');
         } else {
-            this.props.history.push('/login')
+            this.props.history.push('/login');
         }
     }
 
     onEditClick(e) {
-        this.setState({ updatedFolder: this.props.name, edit: true })
+        e.preventDefault();
+        this.setState({ updatedFolder: this.props.name, edit: true });
     }
 
     onCancel(e) {
-        this.setState({ edit: false })
+        e.preventDefault();
+        this.setState({ edit: false });
     }
 
 
@@ -73,12 +74,12 @@ class WorkoutFolderFormat extends Component {
             <>
                 <button onClick={this.onFolderClick.bind(this, this.props.id)}>{this.props.name}</button>
                 <button onClick={(e) => this.onEditClick(e)}>Edit</button>
+                <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
             </>
         )
         return (
             <div>
                 {this.state.edit ? edit : nonEdit}
-                <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
             </div>
         )
     }
