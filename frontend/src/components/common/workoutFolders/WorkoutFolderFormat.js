@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { deleteFolder } from '../../../actions/FolderAction';
+import { deleteFolder, editFolder } from '../../../actions/FolderAction';
 import { getWorkout } from '../../../actions/WorkoutAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,6 +8,27 @@ import { withRouter } from 'react-router-dom'
 class WorkoutFolderFormat extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            updatedFolder: '',
+            edit: false
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onChange(e) {
+        e.preventDefault();
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        const updatedFolder = {
+            workoutFolderName: this.state.updatedFolder
+        };
+        console.log(updatedFolder)
+        this.props.editFolder(updatedFolder, this.props.id);
+        this.setState({ edit: false })
     }
 
     onDeleteClick(id, event) {
@@ -30,22 +51,43 @@ class WorkoutFolderFormat extends Component {
         }
     }
 
+    onEditClick(e) {
+        this.setState({ updatedFolder: this.props.name, edit: true })
+    }
+
+    onCancel(e) {
+        this.setState({ edit: false })
+    }
+
 
 
     render() {
+        const edit = (
+            <form onSubmit={this.onSubmit}>
+                <input type='text' name='updatedFolder' value={this.state.updatedFolder} onChange={(e) => this.onChange(e)} />
+                <button type='submit'>Submit</button>
+                <button onClick={this.onCancel.bind(this)}>Cancel</button>
+            </form>
+        )
+        const nonEdit = (
+            <>
+                <button onClick={this.onFolderClick.bind(this, this.props.id)}>{this.props.name}</button>
+                <button onClick={(e) => this.onEditClick(e)}>Edit</button>
+            </>
+        )
         return (
             <div>
-                <button onClick={this.onFolderClick.bind(this, this.props.id)}>{this.props.name}</button>
-                <button>Edit</button>
+                {this.state.edit ? edit : nonEdit}
                 <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
-            </div >
+            </div>
         )
     }
 }
 
 WorkoutFolderFormat.propTypes = {
     deleteFolder: PropTypes.func.isRequired,
-    getWorkout: PropTypes.func.isRequired
+    getWorkout: PropTypes.func.isRequired,
+    editFolder: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -54,4 +96,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { deleteFolder, getWorkout })(withRouter(WorkoutFolderFormat))
+export default connect(mapStateToProps, { deleteFolder, getWorkout, editFolder })(withRouter(WorkoutFolderFormat))

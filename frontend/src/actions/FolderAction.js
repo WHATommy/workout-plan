@@ -61,3 +61,18 @@ export const deleteFolder = id => dispatch => {
             })
         );
 }
+
+
+export const editFolder = (updatedFolder, id) => dispatch => {
+    console.log(updatedFolder, id)
+    Axios
+        .put(`http://localhost:5000/api/workout/workoutfolder/${id}`, updatedFolder)
+        .then(res => {
+        })
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+}

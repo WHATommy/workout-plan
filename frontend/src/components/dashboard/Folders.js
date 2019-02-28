@@ -32,7 +32,7 @@ class Folders extends Component {
 
     componentDidMount() {
         this.props.getFolder();
-        localStorage.removeItem('folderId')
+        localStorage.removeItem('folderId');
     }
 
     onChange(e) {
