@@ -14,6 +14,7 @@ class Dashboard extends Component {
             reps: '',
             workoutLogs: [],
             folderId: '',
+            graphStatus: 'graphOne',
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -45,6 +46,11 @@ class Dashboard extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    onGraphClick(e) {
+        e.preventDefault();
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
     onSubmit(e) {
         e.preventDefault();
         const workoutInput = {
@@ -59,7 +65,9 @@ class Dashboard extends Component {
         return (
             <div>
                 <div>
-                    <LineGraph workoutData={this.state.workoutLogs} />
+                    <LineGraph workoutData={this.state.workoutLogs} graphStatus={this.state.graphStatus} />
+                    <button onClick={(e) => this.onGraphClick(e)} value="graphOne" name="graphStatus">Graph 1</button>
+                    <button onClick={(e) => this.onGraphClick(e)} value="graphTwo" name="graphStatus">Graph 2</button>
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <input type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} placeholder="name" />

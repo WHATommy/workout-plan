@@ -14,37 +14,38 @@ class Login extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
+  };
 
   componentDidMount() {
+    // If authenticated, go straight to the user's folders
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/folders')
-    }
-  }
+      this.props.history.push('/folders');
+    };
+  };
 
   componentWillReceiveProps(nextProps) {
+    // If authenticated, go straight to the user's folders
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push('/folders')
-    }
+      this.props.history.push('/folders');
+    };
 
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors })
-    }
-  }
+      this.setState({ errors: nextProps.errors });
+    };
+  };
 
   onSubmit(e) {
     e.preventDefault();
-
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.loginUser(userData)
-  }
+    this.props.loginUser(userData);
+  };
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
   render() {
     return (
@@ -71,18 +72,19 @@ class Login extends Component {
           <button>submit</button>
         </form>
       </div>
-    )
-  }
-}
+    );
+  };
+};
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors
-})
-export default connect(mapStateToProps, { loginUser })(withRouter(Login))
+});
+
+export default connect(mapStateToProps, { loginUser })(withRouter(Login));

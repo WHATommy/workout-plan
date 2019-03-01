@@ -32,7 +32,6 @@ class WorkoutFolderFormat extends Component {
 
     onDeleteClick(id, event) {
         event.preventDefault();
-        console.log(this.props.id);
         if (this.props.auth.isAuthenticated) {
             this.props.deleteFolder(id);
         } else {

@@ -22,12 +22,10 @@ class Folders extends Component {
     }
 
     componentDidUpdate() {
-        //this.props.getFolder();
         const workoutFolder = this.props.workoutFolders.workoutFolders;
         if (!this.jsonEqual(workoutFolder, this.state.workoutFolders)) {
             this.setState({ workoutFolders: workoutFolder });
         };
-        console.log(this.state.workoutFolders)
     }
 
     componentDidMount() {

@@ -19,6 +19,7 @@ class Register extends Component {
   }
 
   componentDidMount() {
+    // If authenticated, go straight to the user's folders
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/folders')
     }
@@ -39,7 +40,6 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log(user)
     this.props.registerUser(user, this.props.history);
   }
 

@@ -1,15 +1,8 @@
 import {
     GET_ERRORS,
     GET_FOLDER,
-    CREATE_FOLDER,
-    EDIT_FOLDER,
-    DELETE_FOLDER
 } from '../actions/Types';
 import Axios from 'axios';
-import store from '../store';
-import setAuthToken from '../utils/setAuthToken';
-import { setCurrentUser } from '../actions/AuthAction';
-import jwt_decode from 'jwt-decode';
 
 export const createFolder = (folder) => dispatch => {
     Axios
@@ -21,9 +14,9 @@ export const createFolder = (folder) => dispatch => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
-            })
+            });
         });
-}
+};
 
 export const getFolder = () => dispatch => {
     Axios
@@ -46,33 +39,29 @@ export const getFolder = () => dispatch => {
                 payload: err.response.data
             })
         );
-}
+};
 
 export const deleteFolder = id => dispatch => {
-    Axios
-        .delete(`http://localhost:5000/api/workout/workoutfolder/${id}`)
-        .then(res => {
-            alert('Folder deleted')
-        })
-        .catch(err =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        );
-}
+    if (window.confirm("Delete log?")) {
+        Axios
+            .delete(`http://localhost:5000/api/workout/workoutfolder/${id}`)
+            .catch(err =>
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                })
+            );
+    };
+};
 
 
 export const editFolder = (updatedFolder, id) => dispatch => {
-    console.log(updatedFolder, id)
     Axios
         .put(`http://localhost:5000/api/workout/workoutfolder/${id}`, updatedFolder)
-        .then(res => {
-        })
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
             })
         );
-}
+};
