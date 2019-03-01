@@ -3,6 +3,7 @@ import { editWorkout, deleteWorkout } from '../../../actions/WorkoutAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom'
+import Moment from 'moment'
 
 class WorkoutLogsFormat extends Component {
     constructor(props) {
@@ -62,6 +63,8 @@ class WorkoutLogsFormat extends Component {
         this.setState({ edit: false })
     }
     render() {
+        let date = Moment(this.props.date).format("MMM-DD-YYYY")
+
         const edit = (
             <>
                 <form onSubmit={this.onSubmit}>
@@ -79,7 +82,7 @@ class WorkoutLogsFormat extends Component {
                 <h3>{this.props.name}</h3>
                 <p>{this.props.weight}</p>
                 <p>{this.props.reps}</p>
-                <p>{this.props.date}</p>
+                <p>{date}</p>
                 <button onClick={(e) => this.onEditClick(e)}>Edit</button>
                 <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
             </>

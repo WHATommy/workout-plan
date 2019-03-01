@@ -12,7 +12,7 @@ const { mongoURI, mongoURI_Test } = require('./config/keys_dev');
 const app = express();
 
 app.use(function (req, res, next) {
-    var allowedOrigins = "http://localhost:3000";
+    var allowedOrigins = "http://localhost:3000" || "https://s3.eu-central-1.amazonaws.com/fusion.store/ft/schema/line-chart-with-time-axis-schema.json";
     var origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
         res.setHeader('Access-Control-Allow-Origin', origin);

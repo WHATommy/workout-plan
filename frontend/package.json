@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "fusioncharts": "^3.13.3-sr.1",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.24.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-fusioncharts": "^3.0.0",

@@ -66,8 +66,8 @@ class Dashboard extends Component {
             <div>
                 <div>
                     <LineGraph workoutData={this.state.workoutLogs} graphStatus={this.state.graphStatus} />
-                    <button onClick={(e) => this.onGraphClick(e)} value="graphOne" name="graphStatus">Graph 1</button>
-                    <button onClick={(e) => this.onGraphClick(e)} value="graphTwo" name="graphStatus">Graph 2</button>
+                    <button onClick={(e) => this.onGraphClick(e)} value="graphOne" name="graphStatus">Line</button>
+                    <button onClick={(e) => this.onGraphClick(e)} value="graphTwo" name="graphStatus">Bar</button>
                 </div>
                 <form onSubmit={this.onSubmit}>
                     <input type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} placeholder="name" />
