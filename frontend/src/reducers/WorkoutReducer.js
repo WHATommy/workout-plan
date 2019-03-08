@@ -1,4 +1,4 @@
-import { GET_WORKOUT } from '../actions/Types';
+import { GET_WORKOUT, CREATE_WORKOUT, DELETE_WORKOUT } from '../actions/Types';
 
 const initialState = {
     workoutLogs: [],
@@ -11,6 +11,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 workoutLogs: action.payload
+            };
+        case DELETE_WORKOUT:
+            return {
+                ...state,
+                workoutLogs: { workoutLogs: state.workoutLogs.workoutLogs.filter(workout => workout.id !== action.payload.logId) }
             };
         default:
             return state;

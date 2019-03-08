@@ -88,6 +88,8 @@ router.post('/workoutlog/:workoutfolderid', passport.authenticate('jwt', { sessi
                 }
             });
 
+            console.log(workout)
+
             workout.save()
                 .then(workout => res.status(200).json(workout))
                 .catch(err => console.log(err));

@@ -8,34 +8,39 @@ import Moment from 'moment'
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const LineGraph = (props) => {
+    console.log(props)
     let workoutDataFormatted
     let type = null
-    if (props.graphStatus === 'graphOne') {
-        type = 'line'
-        workoutDataFormatted = props.workoutData.map(data => {
-            let date = Moment(data.date).format("MM-D")
-            let totalWorkVol = data.weight * data.reps
-            return {
-                label: date,
-                value: totalWorkVol
-            }
-        });
-    } else if (props.graphStatus === 'graphTwo') {
-        type = 'column2d'
-        workoutDataFormatted = props.workoutData.map(data => {
-            let date = Moment(data.date).format("MM-D")
-            let totalWorkVol = data.weight * data.reps
-            return {
-                label: date,
-                value: totalWorkVol
-            }
-        });
+    if (props.workoutData === undefined) {
+        workoutDataFormatted = []
+    } else {
+        if (props.graphStatus === 'graphOne') {
+            type = 'line'
+            workoutDataFormatted = props.workoutData.map(data => {
+                let date = Moment(data.date).format("MM-D")
+                let totalWorkVol = data.weight * data.reps
+                return {
+                    label: date,
+                    value: totalWorkVol
+                }
+            });
+            workoutDataFormatted.reverse();
+            JSON.stringify(workoutDataFormatted);
+
+        } else if (props.graphStatus === 'graphTwo') {
+            type = 'column2d'
+            workoutDataFormatted = props.workoutData.map(data => {
+                let date = Moment(data.date).format("MM-D")
+                let totalWorkVol = data.weight * data.reps
+                return {
+                    label: date,
+                    value: totalWorkVol
+                }
+            });
+            workoutDataFormatted.reverse();
+            JSON.stringify(workoutDataFormatted);
+        }
     }
-    console.log(type)
-
-
-    workoutDataFormatted.reverse();
-    JSON.stringify(workoutDataFormatted);
 
     const chartConfigs = {
         type: type,

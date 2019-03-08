@@ -1,6 +1,9 @@
 import {
     GET_ERRORS,
-    GET_WORKOUT
+    GET_WORKOUT,
+    CREATE_WORKOUT,
+    DELETE_WORKOUT,
+    EDIT_WORKOUT
 } from '../actions/Types';
 import Axios from 'axios';
 import store from '../store';
@@ -12,6 +15,27 @@ import jwt_decode from 'jwt-decode';
 export const createWorkout = (workout, id) => dispatch => {
     Axios
         .post(`http://localhost:5000/api/workout/workoutlog/${id}`, workout)
+        .then(res => {
+            let workoutLogs
+            const folderId = id
+            res.data.workoutFolders.map(folder => {
+                if (folder._id == id) {
+                    workoutLogs = folder.workoutFolderData.map(data => {
+                        return {
+                            id: data._id,
+                            name: data.name,
+                            weight: data.weight,
+                            reps: data.reps,
+                            date: data.date
+                        };
+                    });
+                }
+            })
+            dispatch({
+                type: GET_WORKOUT,
+                payload: { workoutLogs, folderId }
+            })
+        })
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
@@ -30,8 +54,9 @@ export const getWorkout = id => dispatch => {
     Axios
         .get(`http://localhost:5000/api/workout/workoutlog/${id}`)
         .then(res => {
+            console.log(res.data)
             const folderId = res.data._id
-            const workoutLogs = res.data.workoutFolderData.map(data => {
+            let workoutLogs = res.data.workoutFolderData.map(data => {
                 return {
                     id: data._id,
                     name: data.name,
@@ -40,7 +65,7 @@ export const getWorkout = id => dispatch => {
                     date: data.date
                 };
             });
-
+            console.log(workoutLogs)
             // Set current folderId into local storage
             localStorage.setItem('folderId', folderId);
 
@@ -62,10 +87,15 @@ export const deleteWorkout = (folderId, logId) => dispatch => {
     if (window.confirm("Delete log?")) {
         Axios
             .delete(`http://localhost:5000/api/workout/workoutlog/${folderId}/${logId}`)
+            .then(dispatch({
+                type: DELETE_WORKOUT,
+                payload: { folderId, logId }
+
+            }))
             .catch(err =>
                 dispatch({
                     type: GET_ERRORS,
-                    payload: err.response.data
+                    payload: err.response
                 })
             );
     };
@@ -76,7 +106,7 @@ export const editWorkout = (updatedLogs, folderId, logId) => dispatch => {
     Axios
         .put(`http://localhost:5000/api/workout/workoutlog/${folderId}/${logId}`, updatedLogs)
         .then(res => {
-            alert('Edit successful')
+            dispatch(getWorkout(folderId))
         })
         .catch(err =>
             dispatch({

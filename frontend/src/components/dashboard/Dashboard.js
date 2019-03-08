@@ -28,7 +28,6 @@ class Dashboard extends Component {
     componentDidUpdate() {
         const workouts = this.props.workoutLogs.workoutLogs.workoutLogs
         const folderId = this.props.workoutLogs.workoutLogs.folderId
-
         if (!this.jsonEqual(workouts, this.state.workoutLogs)) {
             this.setState({ workoutLogs: workouts });
         };
@@ -85,7 +84,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
     workoutLogs: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
+    errors: PropTypes.object,
     getWorkout: PropTypes.func.isRequired,
     createWorkout: PropTypes.func.isRequired
 }

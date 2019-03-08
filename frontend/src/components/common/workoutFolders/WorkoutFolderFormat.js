@@ -59,8 +59,6 @@ class WorkoutFolderFormat extends Component {
         this.setState({ edit: false });
     }
 
-
-
     render() {
         const edit = (
             <form onSubmit={this.onSubmit}>

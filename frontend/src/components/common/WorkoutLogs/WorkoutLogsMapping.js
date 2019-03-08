@@ -3,9 +3,14 @@ import WorkoutLogsFormat from './WorkoutLogsFormat';
 
 const WorkoutLogsMapping = (props) => {
     const folderId = props.folderId
+    let workoutLogs = props.workoutLogs
+    if (workoutLogs === undefined) {
+        workoutLogs = []
+    }
+    console.log(workoutLogs)
     return (
         <div>
-            {props.workoutLogs.map(data =>
+            {workoutLogs.map(data =>
                 <WorkoutLogsFormat
                     id={data.id}
                     name={data.name}
