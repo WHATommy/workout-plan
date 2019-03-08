@@ -1,9 +1,7 @@
 import {
     GET_ERRORS,
     GET_WORKOUT,
-    CREATE_WORKOUT,
     DELETE_WORKOUT,
-    EDIT_WORKOUT
 } from '../actions/Types';
 import Axios from 'axios';
 import store from '../store';

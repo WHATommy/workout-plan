@@ -1,4 +1,4 @@
-import { GET_FOLDER } from '../actions/Types';
+import { GET_FOLDER, DELETE_FOLDER } from '../actions/Types';
 
 const initialState = {
     workoutFolders: [],
@@ -12,6 +12,11 @@ export default function (state = initialState, action) {
                 ...state,
                 workoutFolders: action.payload
             };
+        case DELETE_FOLDER:
+            return {
+                ...state,
+                workoutFolders: state.workoutFolders.filter(folder => folder.id !== action.payload)
+            }
         default:
             return state;
     }
