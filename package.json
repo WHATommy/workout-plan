@@ -30,7 +30,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node server.js",
     "server": "nodemon server.js",
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
