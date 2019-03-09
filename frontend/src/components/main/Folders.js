@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import WorkoutFolderMapping from '../common/workoutFolders/WorkoutFoldersMapping'
+import WorkoutFolderMapping from '../main/workoutFolders/WorkoutFoldersMapping'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';

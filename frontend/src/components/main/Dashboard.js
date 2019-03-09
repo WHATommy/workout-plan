@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import WorkoutLogsMapping from '../common/workoutLogs/WorkoutLogsMapping';
+import WorkoutLogsMapping from '../main/workoutLogs/WorkoutLogsMapping';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createWorkout, getWorkout } from '../../actions/WorkoutAction';
