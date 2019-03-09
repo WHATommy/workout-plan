@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkoutLogsFormat from './WorkoutLogsFormat';
+import WorkoutLogsFormat from './workoutLogs/WorkoutLogsFormat';
 
 const WorkoutLogsMapping = (props) => {
     const folderId = props.folderId
