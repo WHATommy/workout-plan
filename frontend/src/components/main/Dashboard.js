@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import WorkoutLogsMapping from './WorkoutLogsMapping';
+import WorkoutLogsMapping from '../common/workoutLogs/WorkoutLogsMapping';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createWorkout, getWorkout } from '../../../actions/WorkoutAction';
-import LineGraph from '../graph/LineGraph';
+import { createWorkout, getWorkout } from '../../actions/WorkoutAction';
+import LineGraph from '../common/graph/LineGraph';
 import { withRouter } from 'react-router-dom'
 
 class Dashboard extends Component {
