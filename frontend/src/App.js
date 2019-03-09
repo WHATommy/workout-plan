@@ -9,12 +9,11 @@ import './components/layout/Navbar'
 import { Provider } from 'react-redux';
 import store from './store'
 
+import Dashboard from './components/main/Dashboard';
 import NavBar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import Dashboard from './components/main/Dashboard';
 import Folders from './components/main/Folders'
 
 if (localStorage.jwtToken) {
