@@ -12,7 +12,7 @@ import jwt_decode from 'jwt-decode';
 // Create workout log
 export const createWorkout = (workout, id) => dispatch => {
     Axios
-        .post(`http://localhost:5000/api/workout/workoutlog/${id}`, workout)
+        .post(`/api/workout/workoutlog/${id}`, workout)
         .then(res => {
             let workoutLogs
             const folderId = id
@@ -50,7 +50,7 @@ export const getWorkout = id => dispatch => {
     };
 
     Axios
-        .get(`http://localhost:5000/api/workout/workoutlog/${id}`)
+        .get(`/api/workout/workoutlog/${id}`)
         .then(res => {
             console.log(res.data)
             const folderId = res.data._id
@@ -84,7 +84,7 @@ export const getWorkout = id => dispatch => {
 export const deleteWorkout = (folderId, logId) => dispatch => {
     if (window.confirm("Delete log?")) {
         Axios
-            .delete(`http://localhost:5000/api/workout/workoutlog/${folderId}/${logId}`)
+            .delete(`/api/workout/workoutlog/${folderId}/${logId}`)
             .then(dispatch({
                 type: DELETE_WORKOUT,
                 payload: { folderId, logId }
@@ -102,7 +102,7 @@ export const deleteWorkout = (folderId, logId) => dispatch => {
 // Edit workout log
 export const editWorkout = (updatedLogs, folderId, logId) => dispatch => {
     Axios
-        .put(`http://localhost:5000/api/workout/workoutlog/${folderId}/${logId}`, updatedLogs)
+        .put(`/api/workout/workoutlog/${folderId}/${logId}`, updatedLogs)
         .then(res => {
             dispatch(getWorkout(folderId))
         })

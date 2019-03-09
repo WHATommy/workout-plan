@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode';
 // Register User
 export const registerUser = (userData, history) => dispatch => {
     Axios
-        .post('http://localhost:5000/api/user/register', userData)
+        .post('/api/user/register', userData)
         .then(res => {
             alert('Registration successful!');
             history.push('/login');
@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
 // Login User
 export const loginUser = (userData) => dispatch => {
     Axios
-        .post('http://localhost:5000/api/user/login', userData)
+        .post('/api/user/login', userData)
         .then(res => {
             // Save to local storage
             const { token } = res.data;

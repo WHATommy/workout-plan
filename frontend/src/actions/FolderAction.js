@@ -7,7 +7,7 @@ import Axios from 'axios';
 
 export const createFolder = (folder) => dispatch => {
     Axios
-        .post('http://localhost:5000/api/workout/workoutfolder/', folder)
+        .post('/api/workout/workoutfolder/', folder)
         .then(res => {
             let workoutFolder = res.data.workoutFolders.map(folder => {
                 return {
@@ -33,7 +33,7 @@ export const createFolder = (folder) => dispatch => {
 
 export const getFolder = () => dispatch => {
     Axios
-        .get('http://localhost:5000/api/workout/workoutfolder/')
+        .get('/api/workout/workoutfolder/')
         .then(folder => {
             const workoutFolder = folder.data[0].workoutFolders.map(data => {
                 return {
@@ -57,7 +57,7 @@ export const getFolder = () => dispatch => {
 export const deleteFolder = id => dispatch => {
     if (window.confirm("Delete log?")) {
         Axios
-            .delete(`http://localhost:5000/api/workout/workoutfolder/${id}`)
+            .delete(`/api/workout/workoutfolder/${id}`)
             .then(dispatch({
                 type: DELETE_FOLDER,
                 payload: id
@@ -75,7 +75,7 @@ export const deleteFolder = id => dispatch => {
 
 export const editFolder = (updatedFolder, id) => dispatch => {
     Axios
-        .put(`http://localhost:5000/api/workout/workoutfolder/${id}`, updatedFolder)
+        .put(`/api/workout/workoutfolder/${id}`, updatedFolder)
         .then(res => {
             dispatch(getFolder(id))
         })
