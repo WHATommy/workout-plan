@@ -66,26 +66,25 @@ class WorkoutLogsFormat extends Component {
         let date = Moment(this.props.date).format("MMM-DD-YYYY")
 
         const edit = (
-            <>
+            <div className="workoutLogs">
                 <form onSubmit={this.onSubmit}>
-                    <input type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} />
-                    <input type='text' name='weight' value={this.state.weight} onChange={(e) => this.onChange(e)} />
-                    <input type='text' name='reps' value={this.state.reps} onChange={(e) => this.onChange(e)} />
-                    <button type='submit'>Submit</button>
-                    <button onClick={this.onCancel.bind(this)}>Cancel</button>
+                    <input className="input" type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} />
+                    <input className="input" type='text' name='weight' value={this.state.weight} onChange={(e) => this.onChange(e)} />
+                    <input className="input" type='text' name='reps' value={this.state.reps} onChange={(e) => this.onChange(e)} />
+                    <button className="edit" type='submit'>Submit</button>
+                    <button className="delete" type='submit' onClick={this.onCancel.bind(this)}>Cancel</button>
                 </form>
-                <p>{this.props.date}</p>
-            </>
+            </div>
         )
         const nonEdit = (
-            <>
-                <h3>{this.props.name}</h3>
-                <p>{this.props.weight}</p>
-                <p>{this.props.reps}</p>
-                <p>{date}</p>
-                <button onClick={(e) => this.onEditClick(e)}>Edit</button>
-                <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
-            </>
+            <div className="workoutLogs">
+                <h3>Name: {this.props.name}</h3>
+                <p>Weight: {this.props.weight}</p>
+                <p>Reps: {this.props.reps}</p>
+                <p>Date: {date}</p>
+                <button className="edit" onClick={(e) => this.onEditClick(e)}>Edit</button>
+                <button className="delete" onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
+            </div>
         )
         return (
             <div>

@@ -15,21 +15,21 @@ class Navbar extends Component {
         const { isAuthenticated } = this.props.auth;
         const authLinks = (
             <>
-                <a href="" onClick={this.onLogoutClick.bind(this)}>Logout</a>
+                <a className="navbarButtonThree" href="" onClick={this.onLogoutClick.bind(this)}>Logout</a>
             </>
         );
 
         const guestLinks = (
             <>
-                <Link to='/register'>Sign Up</Link>
-                <Link to='/login'>Login</Link>
+                <Link to='/register' className="navbarButtonTwo">Sign Up</Link>
+                <Link to='/login' className="navbarButtonOne">Login</Link>
             </>
         );
 
         return (
             <div className="navbar">
                 <div className="navbarLeft">
-                    <Link to='/' className="navbarLogo">Workout</Link>
+                    <Link to='/' className="navbarLogo">WP</Link>
                 </div>
                 <div className="navbarRight">
                     {isAuthenticated ? authLinks : guestLinks}

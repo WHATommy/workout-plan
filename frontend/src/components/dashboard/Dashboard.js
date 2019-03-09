@@ -15,6 +15,7 @@ class Dashboard extends Component {
             workoutLogs: [],
             folderId: '',
             graphStatus: 'graphOne',
+            adding: false,
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -57,25 +58,52 @@ class Dashboard extends Component {
             weight: this.state.weight,
             reps: this.state.reps
         };
+        this.setState({ adding: false })
         this.props.createWorkout(workoutInput, this.state.folderId);
     }
 
+    onAddClick(e) {
+        e.preventDefault();
+        this.setState({
+            adding: true
+        })
+    }
+
+    onCancel(e) {
+        this.setState({ adding: false })
+    }
+
     render() {
+        const adding = (
+            <form className="form" onSubmit={this.onSubmit}>
+                <input className="input" type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} placeholder="name" />
+                <input className="input" type='text' name='weight' value={this.state.weight} onChange={(e) => this.onChange(e)} placeholder="weight" />
+                <input className="input" type='text' name='reps' value={this.state.reps} onChange={(e) => this.onChange(e)} placeholder="reps" />
+                <button className="dashboardButtonOne" type='submit'>Submit</button>
+                <button className="dashboardButtonTwo" onClick={this.onCancel.bind(this)}>Cancel</button>
+            </form>
+        )
+        const nonAdding = (
+            <div>
+                <button onClick={(e) => this.onAddClick(e)} className="fas fa-plus addButton"></button>
+            </div >
+        )
         return (
             <div>
-                <div>
-                    <LineGraph workoutData={this.state.workoutLogs} graphStatus={this.state.graphStatus} />
-                    <button onClick={(e) => this.onGraphClick(e)} value="graphOne" name="graphStatus">Line</button>
-                    <button onClick={(e) => this.onGraphClick(e)} value="graphTwo" name="graphStatus">Bar</button>
-                </div>
-                <form onSubmit={this.onSubmit}>
-                    <input type='text' name='name' value={this.state.name} onChange={(e) => this.onChange(e)} placeholder="name" />
-                    <input type='text' name='weight' value={this.state.weight} onChange={(e) => this.onChange(e)} placeholder="weight" />
-                    <input type='text' name='reps' value={this.state.reps} onChange={(e) => this.onChange(e)} placeholder="reps" />
-                    <button type='submit'>Submit</button>
-                </form>
-                <div>
-                    <WorkoutLogsMapping workoutLogs={this.state.workoutLogs} folderId={this.state.folderId} />
+                <div className="centerDashboard">
+                    <div>
+                        <LineGraph workoutData={this.state.workoutLogs} graphStatus={this.state.graphStatus} />
+                    </div>
+                    <div>
+                        <button className="graphButton" onClick={(e) => this.onGraphClick(e)} value="graphOne" name="graphStatus">Line</button>
+                        <button className="graphButton" onClick={(e) => this.onGraphClick(e)} value="graphTwo" name="graphStatus">Bar</button>
+                    </div>
+                    <div>
+                        {this.state.adding ? adding : nonAdding}
+                    </div>
+                    <div>
+                        <WorkoutLogsMapping workoutLogs={this.state.workoutLogs} folderId={this.state.folderId} />
+                    </div>
                 </div>
             </div>
         )

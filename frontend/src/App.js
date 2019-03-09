@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import { setCurrentUser, logoutUser } from './actions/AuthAction'
 import './App.css';
+import './components/layout/Navbar'
 
 import { Provider } from 'react-redux';
 import store from './store'
@@ -45,7 +46,6 @@ class App extends Component {
             <Route exact path='/register' component={Register} />
             <Route exact path='/folders' component={Folders} />
             <Route exact path='/dashboard' component={Dashboard} />
-            <Footer />
           </div>
         </Router>
       </Provider>

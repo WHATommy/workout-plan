@@ -44,8 +44,8 @@ const LineGraph = (props) => {
 
     const chartConfigs = {
         type: type,
-        width: 600,
-        height: 400,
+        width: "100%",
+        height: 500,
         dataFormat: 'json',
         dataSource: {
             "chart": {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import WorkoutFolderMapping from '../common/workoutFolders/WorkoutFoldersMapping'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { createFolder, getFolder } from '../../actions/FolderAction';
 
 
@@ -11,6 +12,7 @@ class Folders extends Component {
         this.state = {
             workoutFolderName: '',
             workoutFolders: [],
+            adding: false,
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -29,7 +31,12 @@ class Folders extends Component {
     }
 
     componentDidMount() {
-        this.props.getFolder();
+        if (this.props.auth) {
+            this.props.getFolder();
+        } else {
+            this.props.history.push('/login');
+        }
+
         localStorage.removeItem('folderId');
     }
 
@@ -42,17 +49,39 @@ class Folders extends Component {
         const folderInput = {
             workoutFolderName: this.state.workoutFolderName
         };
-
+        this.setState({ adding: false })
         this.props.createFolder(folderInput);
     }
 
+    onAddClick(e) {
+        e.preventDefault();
+        this.setState({
+            adding: true
+        })
+    }
+
+    onCancel(e) {
+        this.setState({ adding: false })
+    }
+
     render() {
+        const adding = (
+            <form className="form" onSubmit={this.onSubmit}>
+                <input className="input" type='text' name='workoutFolderName' value={this.state.workoutFolderName} onChange={(e) => this.onChange(e)} placeholder="Folder name" />
+                <button className="submit" onClick={this.onCancel.bind(this)}>Cancel</button>
+                <button className="submit" type='submit'>Submit</button>
+            </form>
+        )
+        const nonAdding = (
+            <div>
+                <button onClick={(e) => this.onAddClick(e)} className="fas fa-plus addButton"></button>
+            </div >
+        )
         return (
             <div>
-                <form onSubmit={this.onSubmit}>
-                    <input type='text' name='workoutFolderName' value={this.state.workoutFolderName} onChange={(e) => this.onChange(e)} placeholder="name" />
-                    <button type='submit'>Submit</button>
-                </form>
+                <div className="centerFolder">
+                    {this.state.adding ? adding : nonAdding}
+                </div>
                 <WorkoutFolderMapping workoutFolders={this.state.workoutFolders} />
             </div>
         )
@@ -62,14 +91,15 @@ class Folders extends Component {
 Folders.propTypes = {
     workoutFolders: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     getFolder: PropTypes.func.isRequired,
-    createFolder: PropTypes.func.isRequired,
-
+    createFolder: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     workoutFolders: state.workoutFolders,
+    auth: state.auth,
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { getFolder, createFolder })(Folders)
+export default connect(mapStateToProps, { getFolder, createFolder })(withRouter(Folders))

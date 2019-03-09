@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom'
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import LandingInfo from '../common/landingInfo/LandingInfo';
 
 class Landing extends Component {
     componentDidMount() {
@@ -13,13 +14,17 @@ class Landing extends Component {
 
     render() {
         return (
-            <div className="landing">
-                <h1>WorkoutPlan</h1>
-                <p>Keep track of your progress</p>
-                <hr />
-                <Link to="/folders">
-                    Sign in
-                </Link>
+            <div>
+                <div className="container">
+                    <h1>Workout Plan</h1>
+                    <hr></hr>
+                    <p>Keep track of your progress</p>
+                </div>
+                <div>
+                    <LandingInfo info='Log your sessions' />
+                    <LandingInfo info='Keep all your logs in organized folders' />
+                    <LandingInfo info='Visually see your progression' />
+                </div>
             </div>
         )
     }

@@ -1,33 +1,343 @@
-.App {
+html {
+  background-color: rgb(247, 247, 247);
+  font-family: 'Muli';
+}
+
+/*Landing*/
+
+.container {
+  width: 30%;
+  margin: auto;
+  margin-top: 50px;
   text-align: center;
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0px 2px 4px 1px rgb(214, 214, 214);
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+/*Navbar*/
+
+.navbar {
+  font-family: 'Muli';
+  width: 100%;
+  height: 60px;
+  display: inline-block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.navbarLeft {
+  float: left;
+  height: 60px;
+  margin-left: 10px;
+}
+
+.navbarRight {
+  float: right;
+  height: 60px;
+}
+
+.navbarLogo {
+  transition: 0.1s;
+  color: black;
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 8px;
+  padding: 11px;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+
+.navbarLogo:hover {
+  transition: 0.1s;
+  color: rgb(218, 86, 86);
+  border: 1px solid rgb(218, 86, 86);
+}
+
+.navbarButtonOne {
+  transition: 0.1s;
+  color: black;
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 8px;
+  padding: 11px;
+  border-left: 1px solid black;
+  font-weight: bold;
+}
+
+.navbarButtonOne:hover {
+  transition: 0.1s;
+  color: rgb(218, 86, 86);
+}
+
+.navbarButtonTwo {
+  transition: 0.1s;
+  color: black;
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 8px;
+  padding: 11px;
+  font-weight: bold;
+}
+
+.navbarButtonTwo:hover {
+  transition: 0.1s;
+  color: rgb(218, 86, 86);
+}
+
+.navbarButtonThree {
+  transition: 0.1s;
+  color: black;
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 8px;
+  padding: 11px;
+  font-weight: bold;
+}
+
+.navbarButtonThree:hover {
+  transition: 0.1s;
+  color: rgb(218, 86, 86);
+}
+
+/*Login and Sign Up*/
+
+.align {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+.form {
+    margin-top: 50px;
+    background-color: white;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px 1px rgb(214, 214, 214);
+}
+
+.input {
+    font-family: 'Muli';
+    margin-bottom: 10px;
+    border: none;
+    padding: 15px;
+    width: 70%;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 1px solid rgb(180, 180, 180);
+    border-radius: 7px;
+}
+
+.submit {
+    transition: 0.1s;
+    font-family: 'Muli';
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: rgb(219, 110, 110); 
+    border: none;
+    color: white;
+    padding: 15px;
+    width: 20%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 7px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.submit:hover {
+    transition: 0.1s;
+    background-color: rgb(255, 166, 166);  
+}
+
+.line {
+    margin-top: 20px;
+    width: 100%;
+    border-top: 1px solid rgb(180, 180, 180);
+
+}
+
+.error {
+    color: rgb(255, 73, 73);
+    text-align: left;
+    width: 70%;
+    margin: auto;
+}
+
+/*Folder*/
+
+.centerFolder {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+}
+
+.addButton {
+    transition: 0.1s;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: rgb(219, 110, 110); 
+    border: none;
+    color: white;
+    padding: 5px;
+    width: 8%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 50px;
+    border-radius: 7px;
+}
+
+.containerFolder {
+  width: 20%;
+  height: 100px;
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0px 2px 4px 1px rgb(214, 214, 214);
+}
+
+.nameFolder {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buttonFolder {
+  margin-top: 20px;
+}
+
+.delete, .edit, .go {
+  display: inline-block;
+  transition: 0.1s;
+  background-color: rgb(219, 110, 110); 
+  border: none;
   color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 3px;
 }
 
-.App-link {
-  color: #61dafb;
+.editButtonsOne {
+  transition: 0.1s;
+    font-family: 'Muli';
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: rgb(219, 110, 110); 
+    border: none;
+    color: white;
+    padding: 8px;
+    width: 20%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 7px;
+    margin-top: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.editButtonsTwo {
+  transition: 0.1s;
+    font-family: 'Muli';
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: rgb(219, 110, 110); 
+    border: none;
+    color: white;
+    padding: 8px;
+    width: 20%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 7px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+/*Dashboard*/
+
+.centerDashboard {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+}
+
+.dashboardButtonOne {
+  transition: 0.1s;
+  font-family: 'Muli';
+  font-weight: bold;
+  margin-top: 20px;
+  background-color: rgb(219, 110, 110); 
+  border: none;
+  color: white;
+  padding: 15px;
+  width: 45%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 7px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.dashboardButtonTwo {
+  transition: 0.1s;
+  font-family: 'Muli';
+  font-weight: bold;
+  margin-top: 20px;
+  background-color: rgb(219, 110, 110); 
+  border: none;
+  color: white;
+  padding: 15px;
+  width: 20%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 7px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.graphButton {
+  transition: 0.1s;
+  font-family: 'Muli';
+  font-weight: bold;
+  margin-top: 20px;
+  background-color: rgb(219, 110, 110); 
+  border: none;
+  color: white;
+  padding: 15px;
+  width: 15%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 7px;
+  margin: 5px;
+}
+
+.workoutLogs {
+  width: 40%;
+  height: 200px;
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  background-color: white;
+  padding: 40px;
+  box-shadow: 0px 2px 4px 1px rgb(214, 214, 214);
+}
+
+.line {
+  margin-top: 20px;
+  width: 100%;
+  border-top: 1px solid rgb(180, 180, 180);
 }

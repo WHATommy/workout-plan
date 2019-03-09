@@ -62,20 +62,25 @@ class WorkoutFolderFormat extends Component {
     render() {
         const edit = (
             <form onSubmit={this.onSubmit}>
-                <input type='text' name='updatedFolder' value={this.state.updatedFolder} onChange={(e) => this.onChange(e)} />
-                <button type='submit'>Submit</button>
-                <button onClick={this.onCancel.bind(this)}>Cancel</button>
+                <input className="input" type='text' name='updatedFolder' value={this.state.updatedFolder} onChange={(e) => this.onChange(e)} />
+                <button className="editButtonsOne" type='submit'>Submit</button>
+                <button className="editButtonsTwo" onClick={this.onCancel.bind(this)}>Cancel</button>
             </form>
         )
         const nonEdit = (
             <>
-                <button onClick={this.onFolderClick.bind(this, this.props.id)}>{this.props.name}</button>
-                <button onClick={(e) => this.onEditClick(e)}>Edit</button>
-                <button onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
+                <div className="nameFolder">
+                    {this.props.name}
+                </div>
+                <div className="buttonFolder">
+                    <button className="go" onClick={this.onFolderClick.bind(this, this.props.id)}>Go</button>
+                    <button className="edit" onClick={(e) => this.onEditClick(e)}>Edit</button>
+                    <button className="delete" onClick={this.onDeleteClick.bind(this, this.props.id)}>Delete</button>
+                </div>
             </>
         )
         return (
-            <div>
+            <div className="containerFolder">
                 {this.state.edit ? edit : nonEdit}
             </div>
         )

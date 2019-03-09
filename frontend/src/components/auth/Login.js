@@ -49,10 +49,11 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
+      <div className="align">
+        <form className="form" onSubmit={this.onSubmit}>
           <div>
             <input
+              className="input"
               type='email'
               placeholder='Email Address'
               name='email'
@@ -62,6 +63,7 @@ class Login extends Component {
           </div>
           <div>
             <input
+              className="input"
               type='password'
               placeholder='Password'
               name='password'
@@ -69,7 +71,9 @@ class Login extends Component {
               onChange={this.onChange}
             />
           </div>
-          <button>submit</button>
+          <div className="line">
+            <input type="submit" value="Login" className="submit" />
+          </div>
         </form>
       </div>
     );
