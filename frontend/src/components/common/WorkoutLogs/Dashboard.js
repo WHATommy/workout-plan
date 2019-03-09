@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createWorkout, getWorkout } from '../../../actions/WorkoutAction';
 import LineGraph from '../graph/LineGraph';
+import { withRouter } from 'react-router-dom'
 
 class Dashboard extends Component {
     constructor(props) {
@@ -122,4 +123,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 })
 
-export default connect(mapStateToProps, { getWorkout, createWorkout })(Dashboard)
+export default connect(mapStateToProps, { getWorkout, createWorkout })(withRouter(Dashboard))
