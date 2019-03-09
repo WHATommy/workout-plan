@@ -32,7 +32,7 @@ const db = require('./config/keys').mongoURI
 
 // Connect to MongoDB
 mongoose
-    .connect('mongodb://hitormiss:iguessshetookthekidsya1@ds119702.mlab.com:19702/workoutplan', { useNewUrlParser: true })
+    .connect(db, { useNewUrlParser: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
@@ -46,6 +46,7 @@ app.use('/api/workout', workout);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
+    console.log('production in progress')
     // Set static folder
     app.use(express.static('frontend/build'));
 
@@ -53,7 +54,6 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
     });
 }
-
 
 const port = process.env.PORT || 5000;
 
