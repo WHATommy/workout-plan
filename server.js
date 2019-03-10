@@ -35,8 +35,8 @@ const db = {
 
 // Connect to MongoDB
 mongoose
-    .connect(db, { useMongoClient: true })
-    .then(() => console.log('MongoDB connected'))
+    .connect(db, { useNewUrlParser: true })
+    .then(() => console.log('MongoDB connected', db))
     .catch(err => console.log(err));
 
 // Passport config
