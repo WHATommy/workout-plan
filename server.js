@@ -28,10 +28,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // DB config
-const db = {
-    mongoURI: 'mongodb://hitormiss:iguessshetookthekidsya1@ds119702.mlab.com:19702/workoutplan',
-    secretOrKey: 'anopchan'
-}
+const db = require('./config/keys');
 
 // Connect to MongoDB
 mongoose
