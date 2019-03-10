@@ -35,7 +35,7 @@ const db = {
 
 // Connect to MongoDB
 mongoose
-    .connect(db, { useNewUrlParser: true })
+    .connect(db, { useMongoClient: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
