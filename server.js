@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // DB config
-const db = require('./config/keys');
+const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
