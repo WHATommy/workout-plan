@@ -8,7 +8,6 @@ import Moment from 'moment'
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const LineGraph = (props) => {
-    console.log(props)
     let workoutDataFormatted
     let type = null
     if (props.workoutData === undefined) {

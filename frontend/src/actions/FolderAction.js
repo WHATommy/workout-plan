@@ -16,8 +16,7 @@ export const createFolder = (folder) => dispatch => {
                     workoutFolderData: folder.workoutFolderData,
                     workoutFolderName: folder.workoutFolderName
                 }
-            })
-            console.log(workoutFolder)
+            });
             dispatch({
                 type: GET_FOLDER,
                 payload: workoutFolder

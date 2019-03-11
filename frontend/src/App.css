@@ -189,6 +189,11 @@ html {
     border-radius: 7px;
 }
 
+.addButton:hover {
+    transition: 0.1s;
+    background-color: rgb(255, 166, 166);  
+}
+
 .containerFolder {
   width: 20%;
   height: 100px;
@@ -224,8 +229,13 @@ html {
   margin: 3px;
 }
 
+.delete:hover, .edit:hover, .go:hover {
+    transition: 0.1s;
+    background-color: rgb(255, 166, 166);  
+}
+
 .editButtonsOne {
-  transition: 0.1s;
+    transition: 0.1s;
     font-family: 'Muli';
     font-weight: bold;
     margin-top: 20px;
@@ -233,13 +243,18 @@ html {
     border: none;
     color: white;
     padding: 8px;
-    width: 20%;
+    width: 30%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
     border-radius: 7px;
     margin-top: 10px;
+}
+
+.editButtonsOne:hover {
+  transition: 0.1s;
+  background-color: rgb(255, 166, 166);  
 }
 
 .editButtonsTwo {
@@ -251,7 +266,7 @@ html {
     border: none;
     color: white;
     padding: 8px;
-    width: 20%;
+    width: 30%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -259,6 +274,11 @@ html {
     border-radius: 7px;
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.editButtonsTwo:hover {
+  transition: 0.1s;
+  background-color: rgb(255, 166, 166);  
 }
 
 /*Dashboard*/
@@ -288,6 +308,11 @@ html {
   margin-left: 10px;
 }
 
+.dashboardButtonOne:hover {
+  transition: 0.1s;
+  background-color: rgb(255, 166, 166);  
+}
+
 .dashboardButtonTwo {
   transition: 0.1s;
   font-family: 'Muli';
@@ -307,6 +332,11 @@ html {
   margin-left: 10px;
 }
 
+.dashboardButtonTwo:hover {
+  transition: 0.1s;
+  background-color: rgb(255, 166, 166); 
+}
+
 .graphButton {
   transition: 0.1s;
   font-family: 'Muli';
@@ -323,6 +353,11 @@ html {
   font-size: 16px;
   border-radius: 7px;
   margin: 5px;
+}
+
+.graphButton:hover {
+  transition: 0.1s;
+  background-color: rgb(255, 166, 166); 
 }
 
 .workoutLogs {

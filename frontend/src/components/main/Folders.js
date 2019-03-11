@@ -68,8 +68,8 @@ class Folders extends Component {
         const adding = (
             <form className="form" onSubmit={this.onSubmit}>
                 <input className="input" type='text' name='workoutFolderName' value={this.state.workoutFolderName} onChange={(e) => this.onChange(e)} placeholder="Folder name" />
-                <button className="submit" onClick={this.onCancel.bind(this)}>Cancel</button>
                 <button className="submit" type='submit'>Submit</button>
+                <button className="submit" onClick={this.onCancel.bind(this)}>Cancel</button>
             </form>
         )
         const nonAdding = (

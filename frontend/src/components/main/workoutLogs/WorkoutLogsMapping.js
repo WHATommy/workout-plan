@@ -6,8 +6,7 @@ const WorkoutLogsMapping = (props) => {
     let workoutLogs = props.workoutLogs
     if (workoutLogs === undefined) {
         workoutLogs = []
-    }
-    console.log(workoutLogs)
+    };
     return (
         <div>
             {workoutLogs.map(data =>

@@ -52,7 +52,6 @@ export const getWorkout = id => dispatch => {
     Axios
         .get(`/api/workout/workoutlog/${id}`)
         .then(res => {
-            console.log(res.data)
             const folderId = res.data._id
             let workoutLogs = res.data.workoutFolderData.map(data => {
                 return {
@@ -63,7 +62,6 @@ export const getWorkout = id => dispatch => {
                     date: data.date
                 };
             });
-            console.log(workoutLogs)
             // Set current folderId into local storage
             localStorage.setItem('folderId', folderId);
 
