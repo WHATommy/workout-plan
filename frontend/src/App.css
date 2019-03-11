@@ -376,3 +376,106 @@ html {
   width: 100%;
   border-top: 1px solid rgb(180, 180, 180);
 }
+
+@media only screen and (max-width: 1480px) {
+  .addButton {
+    font-size: 30px;
+  }
+
+  .editButtonsOne {
+    width: 70px;
+    font-size: 14px;
+  }
+
+  .editButtonsTwo {
+    width: 70px;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .addButton {
+    width: 45px;
+  }
+
+  .delete, .edit, .go {
+    padding: 5px;
+    font-size: 15px;
+  }
+
+  .submit {
+    width: 70px;
+    font-size: 12px;
+  }
+
+  .dashboardButtonOne {
+    width: 100px;
+    font-size: 14px;
+  }
+  
+  .dashboardButtonTwo {
+    width: 100px;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .editButtonsOne {
+    width: 60px;
+    font-size: 14px;
+  }
+
+  .editButtonsTwo {
+    width: 60px;
+    font-size: 14px;
+  }
+
+  .graphButton {
+    width: 60px;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .container h1 {
+    font-size: 20px;
+  }
+  .delete, .edit, .go {
+    font-size: 13px;
+    width: 50px;
+  }
+
+  .editButtonsOne {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  .editButtonsTwo {
+    margin-top: 5px;
+    margin-left: 0;
+    font-size: 12px;
+  }
+  .workoutLogs {
+    height: 275px;
+  }
+
+  .dashboardButtonOne {
+    width: 80px;
+    font-size: 12px;
+  }
+  
+  .dashboardButtonTwo {
+    width: 80px;
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .workoutLogs {
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+ 
+}

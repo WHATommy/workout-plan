@@ -18,12 +18,7 @@ class Landing extends Component {
                 <div className="container">
                     <h1>Workout Plan</h1>
                     <hr></hr>
-                    <p>Keep track of your progress</p>
-                </div>
-                <div>
-                    <LandingInfo info='Log your sessions' />
-                    <LandingInfo info='Keep all your logs in organized folders' />
-                    <LandingInfo info='Visually see your progression' />
+                    <p>Keep track of your progress, organize it in folders, see your hard work visually</p>
                 </div>
             </div>
         )

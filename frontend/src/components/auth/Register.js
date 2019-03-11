@@ -92,7 +92,7 @@ class Register extends Component {
             />
           </div>
           <div className="line">
-            <input type="submit" value="Login" className="submit" />
+            <input type="submit" value="Register" className="submit" />
           </div>
         </form>
       </div>
