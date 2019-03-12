@@ -20,3 +20,13 @@ Password: testing
   7. In the config/key_prod.js, insert your own noSQL database(ex. mLab) or leave as is to use a default database.
   8. From the workout-plan root directory, enter **npm run dev** to run the app on a local server
   9. Open your browser to **localhost:3000**(If it has not open automatically)
+
+### Screenshots:
+
+![frontpage](./img/landing.PNG)
+
+![searchcountry](./img/register.PNG)
+
+![createpost](./img/register.PNG)
+
+![mypost](./img/logs.PNG)
