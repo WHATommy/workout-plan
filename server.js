@@ -5,7 +5,6 @@ const passport = require('passport');
 const path = require('path');
 
 const user = require('./routes/api/user');
-const profile = require('./routes/api/profile');
 const workout = require('./routes/api/workout');
 
 const app = express();
@@ -40,7 +39,6 @@ mongoose
 require('./config/passport')(passport)
 
 // Routers
-app.use('/api/profile', profile);
 app.use('/api/user', user);
 app.use('/api/workout', workout);
 

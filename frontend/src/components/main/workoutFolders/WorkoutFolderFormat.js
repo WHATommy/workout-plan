@@ -42,7 +42,8 @@ class WorkoutFolderFormat extends Component {
     onFolderClick(id, event) {
         event.preventDefault();
         if (this.props.auth.isAuthenticated) {
-            this.props.getWorkout(id);
+            localStorage.setItem('folderId', id);
+            this.props.getWorkout();
             this.props.history.push('/dashboard');
         } else {
             this.props.history.push('/login');

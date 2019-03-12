@@ -48,10 +48,12 @@ class Login extends Component {
   };
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="align">
         <form className="form" onSubmit={this.onSubmit}>
           <div>
+            <div className="error">{errors.email}</div>
             <input
               className="input"
               type='email'
@@ -62,6 +64,7 @@ class Login extends Component {
             />
           </div>
           <div>
+            <div className="error">{errors.password}</div>
             <input
               className="input"
               type='password'

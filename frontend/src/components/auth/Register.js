@@ -27,6 +27,7 @@ class Register extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
+      console.log(nextProps.errors)
       this.setState({ errors: nextProps.errors })
     }
   }
@@ -48,10 +49,12 @@ class Register extends Component {
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="align">
         <form className="form" onSubmit={this.onSubmit}>
           <div>
+            <div className="error">{errors.username}</div>
             <input
               className="input"
               type='text'
@@ -62,6 +65,7 @@ class Register extends Component {
             />
           </div>
           <div>
+            <div className="error">{errors.email}</div>
             <input
               className="input"
               type='email'
@@ -72,6 +76,7 @@ class Register extends Component {
             />
           </div>
           <div>
+            <div className="error">{errors.password}</div>
             <input
               className="input"
               type='password'
@@ -82,6 +87,7 @@ class Register extends Component {
             />
           </div>
           <div>
+            <div className="error">{errors.password2}</div>
             <input
               className="input"
               type='password'

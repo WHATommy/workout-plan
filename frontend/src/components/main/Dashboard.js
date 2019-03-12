@@ -113,7 +113,6 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
     workoutLogs: PropTypes.object.isRequired,
-    errors: PropTypes.object,
     getWorkout: PropTypes.func.isRequired,
     createWorkout: PropTypes.func.isRequired
 }

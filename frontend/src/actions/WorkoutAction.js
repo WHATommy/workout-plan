@@ -4,10 +4,6 @@ import {
     DELETE_WORKOUT,
 } from '../actions/Types';
 import Axios from 'axios';
-import store from '../store';
-import setAuthToken from '../utils/setAuthToken';
-import { setCurrentUser } from '../actions/AuthAction';
-import jwt_decode from 'jwt-decode';
 
 // Create workout log
 export const createWorkout = (workout, id) => dispatch => {
@@ -37,18 +33,18 @@ export const createWorkout = (workout, id) => dispatch => {
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
-                payload: err.res.data
+                payload: err.response.data
             })
         });
 };
 
 // Retrieve workout logs
-export const getWorkout = id => dispatch => {
+export const getWorkout = () => dispatch => {
     // If page refresh, retrieve previous session
+    let id
     if (localStorage.folderId) {
         id = localStorage.folderId
-    };
-
+    }
     Axios
         .get(`/api/workout/workoutlog/${id}`)
         .then(res => {
@@ -70,11 +66,13 @@ export const getWorkout = id => dispatch => {
                 payload: { workoutLogs, folderId }
             });
         })
-        .catch(err =>
+        .catch(err => {
+            console.log(err)
             dispatch({
                 type: GET_ERRORS,
-                payload: err.response
+                payload: err.response.data
             })
+        }
         );
 }
 
@@ -91,7 +89,7 @@ export const deleteWorkout = (folderId, logId) => dispatch => {
             .catch(err =>
                 dispatch({
                     type: GET_ERRORS,
-                    payload: err.response
+                    payload: err.response.data
                 })
             );
     };

@@ -90,7 +90,6 @@ class Folders extends Component {
 
 Folders.propTypes = {
     workoutFolders: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     getFolder: PropTypes.func.isRequired,
     createFolder: PropTypes.func.isRequired

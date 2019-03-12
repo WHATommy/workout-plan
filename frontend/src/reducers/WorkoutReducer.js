@@ -1,4 +1,4 @@
-import { GET_WORKOUT, CREATE_WORKOUT, DELETE_WORKOUT } from '../actions/Types';
+import { GET_WORKOUT, DELETE_WORKOUT } from '../actions/Types';
 
 const initialState = {
     workoutLogs: [],
