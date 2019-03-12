@@ -23,10 +23,10 @@ Password: testing
 
 ### Screenshots:
 
-![frontpage](./img/landing.PNG)
+![Front Page](./img/landing.PNG)
 
-![searchcountry](./img/register.PNG)
+![Register](./img/register.PNG)
 
-![createpost](./img/register.PNG)
+![cFolders](./img/folders.PNG)
 
-![mypost](./img/logs.PNG)
+![Logs](./img/logs.PNG)
