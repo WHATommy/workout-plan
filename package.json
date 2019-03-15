@@ -13,6 +13,7 @@
     "concurrent": "^0.3.2",
     "concurrently": "^4.1.0",
     "dateformat": "^3.0.3",
+    "enzyme": "^3.9.0",
     "express": "^4.16.4",
     "faker": "^4.1.0",
     "fusioncharts": "^3.13.3-sr.1",
